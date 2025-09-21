@@ -1,4 +1,4 @@
-import Image from 'next/image';
+"use client";
 
 export default function Lab1() {
   return (
@@ -79,7 +79,6 @@ export default function Lab1() {
                 <td>2/10/21</td>
                 <td>90</td>
               </tr>
-              <tr> ... </tr>
             </tbody>
             <tfoot>
               <tr>
@@ -90,40 +89,28 @@ export default function Lab1() {
           </table>
         </div>
 
-        {/*IMAGE TAG*/}
-        <div id="wd-images">
-          <h4>Image tag</h4>
-          Loading an image from the internet: <br />
-          <Image
-            id="wd-starship"
-            src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"
-            width={400}
-            height={267}
-            alt="SpaceX Starship on launch pad"
-          />
-          <br />
-          <Image id="wd-teslabot" src="/teslabot.jpg" alt="Teslabot robot" height={200} width={200} />
-          <br />
-          <Image id="wd-teslabot" src="/teslabot.jpg" height={200} width={200} alt="Teslabot robot" />
-        </div>
+      {/*IMAGE TAG*/}
+      <div id="wd-images">
+        <h4>Image tag</h4>
+        Loading a local image: <br />
+        <img id="wd-teslabot" src="/images/teslabot.jpg" height="200" width="200" alt="Tesla Bot" />
+      </div>
 
         {/* CREATING INTERACTIVE BUTTONS. 
           To practice creating buttons,
           copy the code below at the end of page.tsx.
         Confirm that clicking the button 
         displays an alert box with an optimistic message.*/}
-        <div>
-          <h5 id="wd-buttons">Buttons</h5>
-          <button type="button"
-                  onClick={() => alert("Life is Good!")}
-                  id="wd-all-good">
-            Hello World!
-          </button>
-        </div>
+        <h5 id="wd-buttons">Buttons</h5>
+        <button type="button"
+          onClick={() => alert("Success: You clicked this button!")}
+          id="wd-button-1">
+          Click me!
+        </button>
         {/* CREATING EXCLUSIVE CHOICES WITH HTML RADIO BUTTONS*/}
         <h5 id="wd-radio-buttons">Radio buttons</h5>
 
-        <label>Favorite movie genre:</label><br />
+        <label>Favorite movie genre:</label>
 
         <input type="radio" name="radio-genre" id="wd-radio-comedy"/>
         <label htmlFor="wd-radio-comedy">Comedy</label><br />
@@ -138,7 +125,7 @@ export default function Lab1() {
 
         {/* CREATING MULTIPLE CHOICES WITH HTML CHECKBOXES*/}
         <h5 id="wd-checkboxes">Checkboxes</h5>
-        <label>Favorite movie genre:</label><br/>
+        <label>Favorite movie genre:</label>
 
         <input type="checkbox" name="check-genre" id="wd-chkbox-comedy"/>
         <label htmlFor="wd-chkbox-comedy">Comedy</label><br/>
@@ -154,28 +141,25 @@ export default function Lab1() {
         
         {/*Drop down bar*/}
         <h4 id="wd-dropdowns">Dropdowns</h4>
-
         <h5>Select one</h5>
-        <label  htmlFor="wd-drop-down-menu"> Favorite movie genre: </label><br/>
-        <select id="wd-drop-down-menu">
+        <label htmlFor="wd-select-one-genre">Favorite movie genre:</label><br/>
+        <select id="wd-select-one-genre" defaultValue="SCIFI">
           <option value="COMEDY">Comedy</option>
           <option value="DRAMA">Drama</option>
-          <option selected value="SCIFI">
-              Science Fiction</option>
+          <option value="SCIFI">Science Fiction</option>
           <option value="FANTASY">Fantasy</option>
           </select>
           <h5>Select multiple</h5>
           <label htmlFor="wd-multi-select">Favorite movie genres:</label><br/>
-          <select id="wd-multi-select" multiple size={4}>
+          <select id="wd-select-many-genre" multiple defaultValue={["SCIFI", "FANTASY"]}>
             <option value="COMEDY">Comedy</option>
             <option value="DRAMA">Drama</option>
-            <option selected value="SCIFI">Science Fiction</option>
-            <option selected value="FANTASY">Fantasy</option>
+            <option value="SCIFI">Science Fiction</option>
+            <option value="FANTASY">Fantasy</option>
           </select>
 
         {/*date, email, number, and range which configure the input field to accept only dates, email addresses, numbers, and numbers within a specified range respectively.*/}
         <h4>Other HTML field types</h4>
-
         <label htmlFor="wd-text-fields-email"> Email: </label>
         <input type="email"
               placeholder="jdoe@somewhere.com"
@@ -200,9 +184,9 @@ export default function Lab1() {
               id="wd-text-fields-dob"/><br/>
 
         {/*ANCHOR TAG TO MY GITHUB*/}
-        <h4>Anchor Tag</h4>
-        My GitHub link:
+        <h4>Anchor Tag</h4>My GitHub link:
         <a href="https://github.com/ellapitts/kambaz-next-js/tree/main/src/app/Labs/Lab1" id="wd-mygithub"> click here</a>
+        <br />
         to get to my GitHub repository for this module.<br/>
 
 
@@ -227,9 +211,13 @@ export default function Lab1() {
           </form>
         </div>
         {/*TEXT AREA  -- SAMPLE CODE FROM PROFESSOR*/}
-        <h5>Text boxes</h5>
-        <label>Biography:</label><br/>
-        <textarea id="wd-textarea" cols={30} rows={10}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</textarea>
+        <h5>Text boxes</h5><label>Text Area:</label><br/>
+        <textarea 
+          id="wd-textarea" 
+          cols={30} 
+          rows={10}
+          defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        />
       </div>
     </>
   );
