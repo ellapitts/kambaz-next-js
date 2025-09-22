@@ -21,7 +21,7 @@ export default function Dashboard() {
             <div>
               {" "}
               {/* Published Courses */}
-              <h5> CS101 Intro to Computer Science </h5>
+              <h3> CS101 Intro to Computer Science </h3>
               <p className="wd-dashboard-course-title">
                 An introduction to the fundamental concepts of computer science
                 and programming languages.
@@ -41,7 +41,7 @@ export default function Dashboard() {
               alt="Discrete Structures"
             />
             <div>
-              <h5> CS102 Data Structures </h5>
+              <h3> CS102 Data Structures </h3>
               <p className="wd-dashboard-course-title">
                 An exploration into discrete mathematical structures and their
                 applications in computer science.
@@ -61,7 +61,7 @@ export default function Dashboard() {
               alt="Intro Data Structures"
             />
             <div>
-              <h5> CS103 Data Structures </h5>
+              <h3> CS103 Data Structures </h3>
               <p className="wd-dashboard-course-title">
                 An overview of fundamental data structures such as arrays,
                 linked lists, and more data structures in computer science using
@@ -82,7 +82,7 @@ export default function Dashboard() {
               alt="Machine Learning"
             />
             <div>
-              <h5> CS104 Machine Learning </h5>
+              <h3> CS104 Machine Learning </h3>
               <p className="wd-dashboard-course-title">
                 Machine Learning and Data Science course.
               </p>
@@ -101,7 +101,7 @@ export default function Dashboard() {
               alt="AI and Business Intersection"
             />
             <div>
-              <h5> CS105 AI and Business</h5>
+              <h3> CS105 AI and Business</h3>
               <p className="wd-dashboard-course-title">
                 An overlook of how artificial intelligence is transforming
                 business operations, decision-making, and customer experiences
@@ -122,7 +122,7 @@ export default function Dashboard() {
               alt="Intro to cloud computing course"
             />
             <div>
-              <h5> CS106 Intro to Cloud Computing </h5>
+              <h3> CS106 Intro to Cloud Computing </h3>
               <p className="wd-dashboard-course-title">
                 Cloud Computing introduction and overview.
               </p>
@@ -141,7 +141,7 @@ export default function Dashboard() {
               alt="Co-op preparation course"
             />
             <div>
-              <h5> CO150 Co-op Preparation Course </h5>
+              <h3> CO150 Co-op Preparation Course </h3>
               <p className="wd-dashboard-course-title">
                 A course designed to prepare students for co-op placements,
                 covering resume writing, interview skills, workplace etiquette,
