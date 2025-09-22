@@ -270,7 +270,7 @@ export default function Lab1() {
               id="wd-text-fields-dob"/><br/>
        {/*ANCHOR TAG TO MY GITHUB*/}
         <h4>Anchor Tag</h4>My GitHub link:
-        <a href="https://github.com/ellapitts/kambaz-next-js/tree/main/src/app/Labs/Lab1" id="wd-mygithub"> click here</a>
+        <a href="https://github.com/ellapitts/kambaz-next-js/tree/main/src/app/Labs/Lab1" id="wd-github"> click here</a>
         <br />
         to get to my GitHub repository for this module.<br/>
     </>
