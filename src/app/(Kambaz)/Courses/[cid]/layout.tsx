@@ -1,6 +1,6 @@
 // Presereve the Kambaz navigatuion and layout for all courses pages.
 import { ReactNode } from "react";
-import CourseNavigation from "./navigation";
+import CourseNavigation from "./MyNavigation";
 
 export default async function CoursesLayout({
   children,
