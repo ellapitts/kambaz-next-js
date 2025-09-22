@@ -1,0 +1,8 @@
+export default function People() {
+  return (
+    <div id="wd-people">
+      <h1>People</h1>
+      <p>Find your classmates soon...integrated later</p>
+    </div>
+  );
+}

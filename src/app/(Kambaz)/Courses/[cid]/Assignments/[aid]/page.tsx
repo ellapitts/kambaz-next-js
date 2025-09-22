@@ -1,4 +1,6 @@
-// This page covers rendering the course editor page
+// This is the assignment editor/view detail page
+// Content: Assignment name field, description, points field, due date field, submission type (link/file) field etc.
+// This is mostly for the Faculty/Professor View. Student does not have this accessibility feature in the future.
 
 export default function AssignmentEditor() {
   return (
@@ -25,5 +27,3 @@ export default function AssignmentEditor() {
     </div>
   );
 }
-
-// STarter code from prof for the editor page
