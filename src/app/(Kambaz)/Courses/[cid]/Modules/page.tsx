@@ -15,7 +15,7 @@ export default function Modules() {
               <ul className="wd-content">
                 <li className="wd-content-item">Introduction to the course</li>
                 <li className="wd-content-item">
-                  Learn what is Web Development
+                  Overview of syllabus and expectations
                 </li>
               </ul>
             </li>
