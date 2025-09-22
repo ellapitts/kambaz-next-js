@@ -6,7 +6,7 @@ export default function Labs() {
       <h1>Labs - Table of Contents</h1>
       <p>Ella Pitts</p>
       <p>CS5610 Web Development - Section 04</p>
-      
+
       <ul>
         <li>
           <Link href="/Labs/Lab1" id="wd-lab1-link">
@@ -30,9 +30,15 @@ export default function Labs() {
         </li>
       </ul>
       <h3>Links</h3>
-     <ul>
-        <li><Link href="/Account/Signin">Kambaz Application</Link></li>
-        <li><a href="https://github.com/ellapitts/kambaz-next-js" id="wd-github">Ella Pitts GitHub Repository</a></li>
+      <ul>
+        <li>
+          <Link href="/Account/Signin">Kambaz Application</Link>
+        </li>
+        <li>
+          <a href="https://github.com/ellapitts/kambaz-next-js" id="wd-github">
+            Ella Pitts GitHub Repository
+          </a>
+        </li>
       </ul>
     </div>
   );

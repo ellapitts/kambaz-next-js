@@ -1,6 +1,7 @@
 // This is the whole app layout file. It is used to wrap all the pages.
-import type { Metadata } from "next";import { Geist, Geist_Mono } from "next/font/google";
-//import "./globals.css"; // --- IGNORE for textbook 1.2.4--- 
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+//import "./globals.css"; // --- IGNORE for textbook 1.2.4---
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

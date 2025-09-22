@@ -5,4 +5,6 @@ export default function CourseStatus() {
       <button>Unpublish</button> <button>Publish</button>
       {/* Complete on your own */}
       <button>View Course Notifications</button>
-    </div> );}
+    </div>
+  );
+}
