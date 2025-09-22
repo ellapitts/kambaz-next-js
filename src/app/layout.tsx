@@ -1,3 +1,4 @@
+// This is the whole app layout file. It is used to wrap all the pages.
 import type { Metadata } from "next";import { Geist, Geist_Mono } from "next/font/google";
 //import "./globals.css"; // --- IGNORE for textbook 1.2.4--- 
 
