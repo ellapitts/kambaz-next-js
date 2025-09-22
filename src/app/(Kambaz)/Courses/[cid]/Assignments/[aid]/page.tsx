@@ -5,13 +5,15 @@
 export default function AssignmentEditor() {
   return (
     <div id="wd-assignments-editor">
+      <h2>Assignments</h2>
       <label htmlFor="wd-name">Assignment Name</label>
       <input id="wd-name" defaultValue="A1 - ENV + HTML" />
       <br />
       <br />
-      <textarea id="wd-description">
-        The assignment is available online Submit a link to the landing page of
-      </textarea>
+      <textarea
+        id="wd-description"
+        defaultValue="The assignment is available online Submit a link to the landing page"
+      />
       <br />
       <table>
         <tr>
