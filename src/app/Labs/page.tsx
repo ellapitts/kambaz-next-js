@@ -4,8 +4,8 @@ export default function Labs() {
   return (
     <div id="wd-labs">
       <h1>Labs - Table of Contents</h1>
-      <p>Ella Pitts</p>
-      <p>CS5610 Web Development - Section 04</p>
+      <h4>Author: Ella Pitts</h4>
+      <h4>CS5610 Web Development - Section 04</h4>
 
       <ul>
         <li>
@@ -24,9 +24,7 @@ export default function Labs() {
           </Link>
         </li>
         <li>
-          <Link href="/Kambaz/Account/Signin" id="wd-kambaz-link">
-            Kambaz
-          </Link>
+          <Link href="/Account/Signin">Kambaz</Link>
         </li>
       </ul>
       <h3>Links</h3>
