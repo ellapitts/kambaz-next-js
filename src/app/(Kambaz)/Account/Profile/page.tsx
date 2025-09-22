@@ -13,7 +13,7 @@ export default function Profile() {
       <input defaultValue="" placeholder="email" type="email" id="wd-email" /><br/>
       <select defaultValue="FACULTY" id="wd-role">
         <option value="USER">User</option><option value="ADMIN">Admin</option>
-        <option value="User">Faculty</option> <option value="STUDENT">Student</option>
+        <option value="FACULTY">Faculty</option> <option value="STUDENT">Student</option>
       </select><br/>
       <Link href="Signin" > Sign out </Link>
     </div>

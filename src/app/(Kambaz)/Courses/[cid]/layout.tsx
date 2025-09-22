@@ -1,3 +1,4 @@
+// Presereve the Kambaz navigatuion and layout for all courses pages.
 import { ReactNode } from "react";
 import CourseNavigation from "./Navigation";
 
@@ -11,8 +12,11 @@ export default async function CoursesLayout(
      <table>
        <tbody>
          <tr>
-           <td valign="top" width="200"> <CourseNavigation /> </td>
-           <td valign="top" width="100%"> {children} </td>
+           <td valign="top" width="200"> 
+            <CourseNavigation /> 
+            </td>
+           <td valign="top" width="100%"> 
+            {children} </td>
          </tr>
        </tbody>
      </table>
