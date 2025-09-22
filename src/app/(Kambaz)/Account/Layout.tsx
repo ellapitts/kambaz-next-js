@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import AccountNavigation from "./navigation";
+import AccountNavigation from "./MyNavigation";
 
 export default function AccountLayout({
   children,
