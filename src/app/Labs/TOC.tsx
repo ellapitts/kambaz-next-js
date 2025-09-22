@@ -16,8 +16,12 @@ export default function TOC() {
      </li>
      <li>
        <Link href="/Labs/Lab3" id="wd-lab3-link">
-         Lab 3 </Link>
-     </li>
+         Lab 3 </Link> 
+        </li>
+      <li>
+        <Link href="/Labs/Lab4" id="/Kambaz/Homepage-1">
+          Kambaz</Link>
+      </li>
    </ul>
 );}
 

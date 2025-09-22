@@ -1,13 +1,12 @@
+// This is the actual signing up page
 import Link from "next/link";
-
 export default function Signin() {
-    return (
-        <div id="wd-signin-screen">
-            <h3>Sign in</h3>
-            <input type="text" placeholder="Username" className="wd-username" /> <br />
-            <input type="password" placeholder="Password" className="wd-password" /> <br />
-            <Link href="Profile" id="wd-singin-btn"> Sign in </Link> <br />
-            <Link href="Signup" id="wd-signup-link"> Sign up </Link>
-        </div>
-    );
-}
+ return (
+   <div id="wd-signin-screen">
+     <h3>Sign in</h3>
+     <input placeholder="username" className="wd-username" /> <br />
+     <input placeholder="password" type="password" className="wd-password" /> <br />
+     <Link href="Profile" id="wd-signin-btn"> Sign in </Link> <br />
+     <Link href="Signup" id="wd-signup-link"> Sign up </Link>
+   </div>
+);}
