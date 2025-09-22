@@ -32,7 +32,7 @@ export default function Labs() {
       <h3>Links</h3>
      <ul>
         <li><Link href="/Account/Signin">Kambaz Application</Link></li>
-        <li><a href="https://github.com/ellapitts/kambaz-next-js" id="wd-github">Ella Pitts' GitHub Repository</a></li>
+        <li><a href="https://github.com/ellapitts/kambaz-next-js" id="wd-github">Ella Pitts GitHub Repository</a></li>
       </ul>
     </div>
   );

@@ -19,7 +19,7 @@ export default function TOC() {
          Lab 3 </Link> 
         </li>
       <li>
-        <Link href="/Labs/Lab4" id="/Kambaz/Homepage-1">
+        <Link href="/Account/Signin" id="wd-kambaz-link">
           Kambaz</Link>
       </li>
    </ul>
