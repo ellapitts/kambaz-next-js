@@ -15,7 +15,7 @@ export default function Signin() {
         Sign in{" "}
       </Link>{" "}
       <br />
-      <Link href="Sign up" id="wd-signup-link">
+      <Link href="/Account/Signup" id="wd-signup-link">
         {" "}
         Sign up{" "}
       </Link>
