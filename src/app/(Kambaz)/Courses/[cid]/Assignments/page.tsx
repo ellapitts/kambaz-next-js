@@ -20,7 +20,7 @@ export default function Assignments() {
       <ul id="wd-assignment-list">
         <li className="wd-assignment-list-item">
           <Link
-            href={"/Courses/${cid}/Assignments/A1"}
+            href={"/Courses/{cid}}/Assignments/A1"}
             className="wd-assignment-link"
           >
             A1
@@ -29,7 +29,7 @@ export default function Assignments() {
 
         <li className="wd-assignment-list-item">
           <Link
-            href={"/Courses/${cid}/Assignments/A2"}
+            href={"/Courses/{cid}/Assignments/A2"}
             className="wd-assignment-link"
           >
             A2
