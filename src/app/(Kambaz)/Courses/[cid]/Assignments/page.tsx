@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import React from "react";
 export default function Assignments() {
-  const { cid } = useParams(); // Placeholder for course ID, replace with actual data fetching logic
+  const { cid } = useParams(); // Course ID from url
 
   return (
     <div id="wd-assignments">
@@ -16,21 +16,41 @@ export default function Assignments() {
       <h3 id="wd-assignments-title">
         ASSIGNMENTS 40% of Total <button>+</button>
       </h3>
+
       <ul id="wd-assignment-list">
         <li className="wd-assignment-list-item">
           <Link
-            href={"/Courses/${cid}/Assignments/123"}
+            href={"/Courses/${cid}/Assignments/A1"}
             className="wd-assignment-link"
           >
-            A1 - ENV + HTML
+            A1
           </Link>
         </li>
+
         <li className="wd-assignment-list-item">
           <Link
-            href={"/Courses/${cid}/Assignments/124"}
+            href={"/Courses/${cid}/Assignments/A2"}
             className="wd-assignment-link"
           >
-            A2 - CSS + BOOTSTRAP
+            A2
+          </Link>
+        </li>
+
+        <li className="wd-assignment-list-item">
+          <Link
+            href={"/Courses/${cid}/Assignments/A3"}
+            className="wd-assignment-link"
+          >
+            A3
+          </Link>
+        </li>
+
+        <li className="wd-assignment-list-item">
+          <Link
+            href={"/Courses/${cid}/Assignments/A4"}
+            className="wd-assignment-link"
+          >
+            A4
           </Link>
         </li>
       </ul>
