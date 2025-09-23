@@ -1,6 +1,4 @@
-// This is the actual signing up page
 import Link from "next/link";
-
 export default function Signin() {
   return (
     <div id="wd-signin-screen">
@@ -12,12 +10,12 @@ export default function Signin() {
         className="wd-password"
       />{" "}
       <br />
-      <Link id="wd-signin-btn" href="/Dashboard">
+      <Link href="/Dashboard" id="wd-signin-btn">
         {" "}
         Sign in{" "}
       </Link>{" "}
-      <br /> {/* After signing in, go to Dashboard */}
-      <Link href="Signup" id="wd-signup-link">
+      <br />
+      <Link href="Sign up" id="wd-signup-link">
         {" "}
         Sign up{" "}
       </Link>
