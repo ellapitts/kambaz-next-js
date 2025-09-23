@@ -9,8 +9,23 @@ export default async function CoursesLayout({
   const { cid } = await params;
   return (
     <div id="wd-courses">
+      {/* Implement Collapse All button, View Progress button, etc. */}
       <h2>Courses {cid}</h2>
       <hr />
+      <div id="wd-course-controls" style={{ marginBottom: "20px" }}>
+        <button id="wd-collapse-all">Collapse All</button>{" "}
+        <button id="wd-view-progress">View Progress</button>{" "}
+        <select id="wd-publish-all" defaultValue="">
+          <option value="" disabled>
+            Publish All
+          </option>
+          <option value="publish-modules">Publish All Modules as Draft</option>
+          <option value="publish-items">Publish All Items for Review</option>
+          <option value="unpublish-all">Unpublish</option>
+        </select>{" "}
+        <button id="wd-add-module">+ Module Changes</button>
+      </div>
+
       <table>
         <tbody>
           <tr>
