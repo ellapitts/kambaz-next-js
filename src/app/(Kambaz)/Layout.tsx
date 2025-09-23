@@ -2,7 +2,7 @@
 // Creates a table element to layout the navigation sidebar and Dashboard into a single row with two columns.
 // Puts naviation on the left column and children on the right
 import { ReactNode } from "react";
-import KambazNavigation from "./navigation";
+import KambazNavigation from "./MyNavigation";
 export default function KambazLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
