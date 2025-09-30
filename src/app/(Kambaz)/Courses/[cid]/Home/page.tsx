@@ -1,5 +1,5 @@
 // This creates the home screen combining the course status and modules together.
-
+// Combines the Course Status with the Modules to create the Home screen for the course screen.
 import Modules from "../Modules/page";
 import CourseStatus from "./coursehomepagestatus";
 
