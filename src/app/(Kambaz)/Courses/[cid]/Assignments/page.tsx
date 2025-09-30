@@ -1,5 +1,5 @@
 // Courses/[cid]/Assignments page. 
-// This page lists all the assignments for the course
+// Assignment Page 
 // Content is search bar, add assignment / group buttons, lists the various assignments' anchors
 "use client";
 
@@ -20,37 +20,25 @@ export default function Assignments() {
 
       <ul id="wd-assignment-list">
         <li className="wd-assignment-list-item">
-          <Link
-            href={"/Courses/{cid}}/Assignments/A1"}
-            className="wd-assignment-link"
-          >
-            A1
+          <Link href={`/Courses/${cid}/Assignments/A1`} className="wd-assignment-link">
+          A1
           </Link>
         </li>
 
         <li className="wd-assignment-list-item">
-          <Link
-            href={"/Courses/{cid}/Assignments/A2"}
-            className="wd-assignment-link"
-          >
-            A2
+          <Link href={`/Courses/${cid}/Assignments/A2`} className="wd-assignment-link">
+          A2
           </Link>
         </li>
 
         <li className="wd-assignment-list-item">
-          <Link
-            href={"/Courses/${cid}/Assignments/A3"}
-            className="wd-assignment-link"
-          >
+          <Link href={`/Courses/${cid}/Assignments/A3`} className="wd-assignment-link">
             A3
           </Link>
         </li>
 
         <li className="wd-assignment-list-item">
-          <Link
-            href={"/Courses/${cid}/Assignments/A4"}
-            className="wd-assignment-link"
-          >
+          <Link href={`/Courses/${cid}/Assignments/A4`} className="wd-assignment-link">
             A4
           </Link>
         </li>
