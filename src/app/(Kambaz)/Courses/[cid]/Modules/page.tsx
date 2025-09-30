@@ -6,17 +6,13 @@ export default function Modules() {
       {/* Implement Collapse All button, View Progress button, etc. */}
       <ul id="wd-modules">
         <li className="wd-module">
-          <div className="wd-title">
-            Week 1 - Lecture 1: Course Introduction & Syllabus
-          </div>
+          <div className="wd-title">Week 1 - Lecture 1: Course Introduction & Syllabus</div>
           <ul className="wd-lessons">
             <li className="wd-lesson">
               <span className="wd-title">LEARNING OBJECTIVES</span>
               <ul className="wd-content">
                 <li className="wd-content-item">Introduction to the course</li>
-                <li className="wd-content-item">
-                  Overview of syllabus and expectations
-                </li>
+                <li className="wd-content-item">Overview of syllabus and expectations</li>
               </ul>
             </li>
             <li className="wd-lesson">
