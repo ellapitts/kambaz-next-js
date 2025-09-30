@@ -1,3 +1,6 @@
+// src/app/(Kambaz)/Courses/[cid]/cid_navigation.tsx
+// This is the cid/cid_navigation file
+
 "use client";
 import Link from "next/link";
 import { useParams } from "next/navigation";

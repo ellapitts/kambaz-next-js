@@ -10,7 +10,7 @@ export default function Dashboard() {
       <div id="wd-dashboard-courses">
         {/* Course 1 */}
         <div className="wd-dashboard-course">
-          <Link href="/Courses/101" className="wd-dashboard-course-link">
+          <Link href={"/Courses/101"} className="wd-dashboard-course-link">
             <Image
               src="/images/introtocompsci.jpg"
               width={400}
