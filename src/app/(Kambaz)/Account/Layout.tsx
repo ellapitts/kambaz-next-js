@@ -4,7 +4,7 @@
 // Puts navigation on the left column and children on the right
 
 import { ReactNode } from "react";
-import AccountNavigation from "./MyNavigation";
+import AccountNavigation from "./AccountNavigation";
 export default function AccountLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {

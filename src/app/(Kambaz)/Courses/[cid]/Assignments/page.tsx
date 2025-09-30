@@ -1,3 +1,4 @@
+// Courses/[cid]/Assignments page. 
 // This page lists all the assignments for the course
 // Content is search bar, add assignment / group buttons, lists the various assignments' anchors
 "use client";

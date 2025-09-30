@@ -10,15 +10,8 @@ export default function Signin() {
         className="wd-password"
       />{" "}
       <br />
-      <Link href="/Dashboard" id="wd-signin-btn">
-        {" "}
-        Sign in{" "}
-      </Link>{" "}
-      <br />
-      <Link href="/Account/Signup" id="wd-signup-link">
-        {" "}
-        Sign up{" "}
-      </Link>
+      <Link id="wd-signin-btn" href="/Dashboard"> Sign in </Link> <br />
+      <Link id="wd-signup-link" href="/Account/Signup">Sign up </Link>
     </div>
   );
 }
