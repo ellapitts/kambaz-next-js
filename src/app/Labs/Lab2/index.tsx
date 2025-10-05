@@ -16,9 +16,10 @@ export default function Lab2() {
           Instead of changing the look and feel of all the elements of the same
           name, e.g., P, we can refer to a specific element by its ID
         </p>
-        
+
         <p id="wd-id-selector-2">
-          Here is another paragraph using a differnet ID and a different look and feel
+          Here is another paragraph using a differnet ID and a different look
+          and feel
         </p>
       </div>
 
@@ -26,7 +27,8 @@ export default function Lab2() {
         <h3>Class Selectors</h3>
 
         <p className="wd-class-selectors">
-          Instead of using IDs to refer to elements, you can use an element's CLASS attribute.
+          Instead of using IDs to refer to elements, you can use an element's
+          CLASS attribute.
         </p>
 
         <h4 className="wd-class-selector">
