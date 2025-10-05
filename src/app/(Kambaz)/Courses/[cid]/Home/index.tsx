@@ -1,6 +1,6 @@
 // src/(Kambaz)/Courses/[cid]/Home/index.tsx
 
-import Modules from "../Modules";
+import Modules from "./page";
 export default function Home() {
   return (
     <table id="wd-home">
