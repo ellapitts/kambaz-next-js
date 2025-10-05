@@ -23,5 +23,40 @@ p#wd-id-selector-1 {
   /* refers to .wd-selector-4 as a direct child of .wd-selector-3 which is a direct child of .wd-selector-2 */
   background-color: yellow;
   color: blue;
+}
 
+/* Practicing to declare several useful color classes. Copy the HTML code below into a new file called ForegroundColors.tsx. Import the file into Lab2 and confirm it renders as shown.
+*/
+.wd-fg-color-black {
+  color: black;
+}
+.wd-fg-color-white {
+  color: white;
+}
+.wd-fg-color-blue {
+  color: #7070ff;
+}
+.wd-fg-color-red {
+  color: #ff7070;
+}
+.wd-fg-color-green {
+  color: green;
+}
+.wd-bg-color-yellow {
+  background-color: #ffff07;
+}
+.wd-bg-color-blue {
+  background-color: #7070ff;
+}
+.wd-bg-color-red {
+  background-color: #ff7070;
+}
+.wd-bg-color-green {
+  background-color: green;
+}
+.wd-bg-color-gray {
+  background-color: lightgray;
+}
+.some-css-selector {
+  color: blue;
 }
