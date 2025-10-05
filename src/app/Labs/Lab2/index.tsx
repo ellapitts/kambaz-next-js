@@ -27,8 +27,7 @@ export default function Lab2() {
         <h3>Class Selectors</h3>
 
         <p className="wd-class-selectors">
-          Instead of using IDs to refer to elements, you can use an element's
-          CLASS attribute.
+          Instead of using IDs to refer to elements, you can use an element&apos;s CLASS attribute.
         </p>
 
         <h4 className="wd-class-selector">

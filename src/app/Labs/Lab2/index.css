@@ -1,20 +1,27 @@
 /* This is the CSS stylesheet for Lab 2 */
-/* p {
-    background-color: green;
-    color: white;
-} */
-
- p#wd-id-selector-1 {
-    background-color: red;
-    color: white;
+p {
+  background-color: yellow;
+  color: black;
 }
 
-p#wd-id-selector-2 {
-    background-color: yelow;
-    color: black;
+p#wd-id-selector-1 {
+  background-color: red;
+  color: white;
 }
 
 .wd-class-selector {
-    background-color: yellow;
-    color: blue;
+  background-color: yellow;
+  color: blue;
+}
+.wd-selector-1 .wd-selector-3 {
+  /* refers to .wd-selector-3 as a descendant of .wd-selector-1*/
+
+  background-color: red;
+  color: white;
+}
+.wd-selector-2 > .wd-selector-3 > .wd-selector-4 {
+  /* refers to .wd-selector-4 as a direct child of .wd-selector-3 which is a direct child of .wd-selector-2 */
+  background-color: yellow;
+  color: blue;
+
 }
