@@ -230,3 +230,18 @@ p#wd-id-selector-1 {
   flex-grow: 1;
 }
 
+/* Screen Size Label 2.3.5 Hiding and Showing responsive HTML Content with React Bootstrap*/
+#wd-screen-size-label {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: black;
+  color: white;
+  padding: 5px;
+  font-size: 12px;
+  z-index: 1000;
+  width: 220px;
+  text-align: center;
+}
+
+

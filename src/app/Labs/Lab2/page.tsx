@@ -1,4 +1,5 @@
 import "./index.css";
+import { Container } from "react-bootstrap"; 
 import ForegroundColors from "./foregroundcolors";
 import BackgroundColors from "./BackgroundColors";
 import Padding from "./padding";
@@ -11,10 +12,18 @@ import Zindex from "./zindex";
 import Float from "./float";
 import GridLayout from "./gridlayout";
 import Flex from "./flex";
+import BootstrapGrids from "./BootstrapGrids";
+import BootstrapTables from "./BootstrapTables"; 
+import BoostrapLists from "./BootstrapLists";
+import BootstrapForms from "./BootstrapForms";
+
 
 export default function Lab2() {
   return (
-    <div id="wd-lab2">
+    <Container>
+      <h2>Lab 2 - Cascading Style Sheets</h2>
+      <h3>Styling with the STYLE attriubte</h3>
+    {/* <div id="wd-lab2"> */}
       <h2>Lab 2 - Cascading Style Sheets</h2>
       <h3>Styling with the STYLE attribute</h3>
       <div id="wd-css-id-selectors">
@@ -84,6 +93,12 @@ export default function Lab2() {
       <Float />
       <GridLayout />
       <Flex />
-    </div>
+      <BootstrapGrids />
+      <BootstrapTables />
+      <BoostrapLists />
+      <Corners />
+      <BootstrapForms />
+    {/* </div> */}
+    </Container>
   );
 }
