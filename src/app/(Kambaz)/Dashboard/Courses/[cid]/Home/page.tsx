@@ -2,8 +2,8 @@
 /* This file */
 // This creates the home screen combining the course status and modules together.
 // Combines the Course Status with the Modules to create the Home screen for the course screen.
-import Modules from "../Modules/page";
-import CourseStatus from "./coursehomepagestatus";
+import Modules from "./.Modules/page";
+import CourseStatus from "../Home";
 
 export default function Home() {
   return (
@@ -27,7 +27,7 @@ export default function Home() {
         <div className="flex-fill me-3">
           <Modules />
         </div>
-        <div className="d-none d-lg-block" style={{ width: "350px", paddingLeft: "20px" }}>
+        <div className="d-none d-lg-block">
           <CourseStatus />
         </div>
       </div>

@@ -3,7 +3,7 @@
 */
 // Presereve the Kambaz navigatuion and layout for all courses pages.
 import { ReactNode } from "react";
-import CourseNavigation from "./cid_navigation";
+import CourseNavigation from "..[cid]/cid_navigation";
 import { FaAlignJustify } from "react-icons/fa";
 
 export default async function CoursesLayout({
@@ -52,7 +52,7 @@ export default async function CoursesLayout({
       </h2>{" "}
       <hr />
       <div className="d-flex">
-        <div className="d-none d-md-block" style={{ width: "320px" }}>
+        <div className="d-none d-md-block">
           <CourseNavigation />
         </div>
         <div className="flex-fill">{children}</div>
