@@ -7,7 +7,7 @@ import {
   InputGroup,
   Row,
   Col,
-  Button,
+  Button
 } from "react-bootstrap";
 
 export default function BootstrapForms() {
@@ -82,10 +82,10 @@ export default function BootstrapForms() {
         </InputGroup>
       </div>
 
-      {/*  Resize the window to show how the form changes layout as the window resizes */}
+      {/*  Resize the window to show how the form changes layout as the window resizes 1 */}
       <div id="wd-css-responsive-forms-1">
         <h3>Responsive forms</h3>
-        <Row className="mb-3" controlID="email1">
+        <Row className="mb-3" controlid="email1">
           <FormLabel column sm={2}>
             {" "}
             Email{" "}
@@ -94,7 +94,7 @@ export default function BootstrapForms() {
             <FormControl type="email" defaultValue="email@example.com" />
           </Col>
         </Row>
-        <Row className="mb-3" controlId="password1">
+        <Row className="mb-3" controlid="password1">
           <FormLabel column sm={2}>
             {" "}
             Password{" "}
@@ -103,7 +103,7 @@ export default function BootstrapForms() {
             <FormControl type="password" />
           </Col>
         </Row>
-        <Row className="mb-3" controlId="textarea2">
+        <Row className="mb-3" controlid="textarea2">
           <FormLabel column sm={2}>
             {" "}
             Bio{" "}
@@ -118,7 +118,7 @@ export default function BootstrapForms() {
       <div id="wd-css-responsive-forms-2">
         <h3>Responsive forms 2</h3>
         <Form>
-          <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
+          <Row className="mb-3" controlid="formHorizontalEmail">
             <FormLabel column sm={2}>
               Email
             </FormLabel>
@@ -126,12 +126,11 @@ export default function BootstrapForms() {
             <Col sm={10}>
               <FormControl type="email" placeholder="Email" />
             </Col>
-          </Form.Group>
+          </Row>
 
-          <Form.Group
-            as={Row}
+          <Row
             className="mb-3"
-            controlId="formHorizontalPassword"
+            controlid="formHorizontalPassword"
           >
             <FormLabel column sm={2}>
               {" "}
@@ -141,9 +140,9 @@ export default function BootstrapForms() {
               {" "}
               <FormControl type="password" placeholder="Password" />{" "}
             </Col>
-          </Form.Group>
+          </Row>
           <fieldset>
-            <Form.Group as={Row} className="mb-3">
+            <Row className="mb-3">
               <FormLabel as="legend" column sm={2}>
                 {" "}
                 Radios{" "}
@@ -171,7 +170,7 @@ export default function BootstrapForms() {
                   name="formHorizontalRadios"
                 />
               </Col>
-            </Form.Group>
+            </Row>
           </fieldset>
           <Col>
             {" "}
@@ -179,8 +178,6 @@ export default function BootstrapForms() {
           </Col>
         </Form>
       </div>
-
-      
     </div>
   );
 }

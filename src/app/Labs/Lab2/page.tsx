@@ -16,7 +16,7 @@ import BootstrapGrids from "./BootstrapGrids";
 import BootstrapTables from "./BootstrapTables"; 
 import BoostrapLists from "./BootstrapLists";
 import BootstrapForms from "./BootstrapForms";
-
+import BootstrapNavigation from "./BootstrapNavigation";
 
 export default function Lab2() {
   return (
@@ -98,6 +98,7 @@ export default function Lab2() {
       <BoostrapLists />
       <Corners />
       <BootstrapForms />
+      <BootstrapNavigation />
     {/* </div> */}
     </Container>
   );
