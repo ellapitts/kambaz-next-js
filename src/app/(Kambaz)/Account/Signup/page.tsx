@@ -13,11 +13,12 @@ export default function Signup() {
         placeholder="verify password"
         type="password"
         className="mb-2"/>
-      <Link id="wd-signin-btn" 
+      <Link id="wd-signup-btn" 
       href="/Account/Profile"
       className="btn btn-primary w-100 mb-2"> Sign up </Link>
       <br />
-      <Link href="wd-signin-link"> Sign in </Link>
+      <Link href="/Account/Signin"
+      className="wd-signin-link"> Sign in </Link>
     </div>
   );
 }
