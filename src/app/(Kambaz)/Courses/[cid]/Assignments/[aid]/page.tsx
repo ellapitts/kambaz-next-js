@@ -217,10 +217,12 @@ export default function AssignmentEditor() {
       <br />
       <hr />
       {/* Save or Cancel Buttons */}
-      <Link href={`/Courses/${cid}/Assignments`}>
+      <Link href={`/Courses/${cid}/Assignments/${aid}/`}>
+      {/* Takes you to the same page for more edits */}
         <button style={{ marginRight: "10px" }}>Cancel</button>
       </Link>
       <Link href={`/Courses/${cid}/Assignments`}>
+            {/* Takes you to the assignment selector page to edit a different assignment */}
         <button style={{ backgroundColor: "blue", color: "white" }}>
           Save
         </button>
