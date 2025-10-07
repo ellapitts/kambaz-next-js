@@ -6,6 +6,7 @@ export default function TOC() {
   return (
      <Nav variant="pills">
      <NavItem>
+      <NavItem>Ella Pitts</NavItem>
        <NavLink href="/Labs" as={Link}>Labs</NavLink>
      </NavItem>
      <NavItem>
@@ -21,7 +22,7 @@ export default function TOC() {
        <NavLink href="/Account/Signin" as={Link}>Kambaz</NavLink>
      </NavItem>
      <NavItem>
-       <NavLink href="https://github.com/ellapitts/">My GitHub</NavLink>
+       <NavLink href="https://github.com/ellapitts/">Ella Pitts&apos; GitHub</NavLink>
      </NavItem>
    </Nav>
 
