@@ -22,8 +22,6 @@ export default function Lab2() {
   return (
     <Container>
       <h2>Lab 2 - Cascading Style Sheets</h2>
-      <h3>Styling with the STYLE attriubte</h3>
-      <h2>Lab 2 - Cascading Style Sheets</h2>
       <h3>Styling with the STYLE attribute</h3>
       <div id="wd-css-id-selectors">
         <h3>ID selectors</h3>
