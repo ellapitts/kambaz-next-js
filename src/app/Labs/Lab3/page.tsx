@@ -33,9 +33,10 @@ import TodoItem from "./todos/TodoItem";
 import TodoList from "./todos/TodoList";
 
 export default function Lab3() {
+    console.log('Hello World')
   return (
     <div id="wd-lab3">
-      <h2>Lab 3</h2>
+      <h2>Lab 3 Javascript </h2>
       <Add a={3} b={4} />
       <h4>Square of 4</h4>
       <Square>4</Square>
