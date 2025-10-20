@@ -7,8 +7,8 @@ import CourseNavigation from "./cid_navigation"; // needed for the course nav. s
 import { FaAlignJustify } from "react-icons/fa"; // needed for the heading
 import { courses } from "../../Database"; // used to find the current course
  
-export default function CoursesLayout({ children, params }: { children: ReactNode; params: { cid: string } | Promise<{ cid: string}>;}) {
-  const { cid } = params; 
+export default async function CoursesLayout({ children, params }: { children: ReactNode; params: { cid: string } | Promise<{ cid: string}>;}) {
+  const { cid } = await params; 
   const course = courses.find((course) => course._id === cid);
   
   return (
