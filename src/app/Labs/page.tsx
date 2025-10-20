@@ -4,8 +4,8 @@ export default function Labs() {
   return (
     <div id="wd-labs">
       <h1>Labs - Table of Contents</h1>
-      <h4>Author: Ella Pitts</h4>
-      <h4>CS5610 Web Development - Section 04</h4>
+      <h3>Author: Ella Pitts</h3>
+      <h5>CS5610 Web Development - Section 04</h5>
 
       <ul>
         <li>
