@@ -1,16 +1,17 @@
-// This is the assignment editor/view detail page
-// Content: Assignment name field, description, points field, due date field, submission type (link/file) field etc.
-// This is mostly for the Faculty/Professor View. Student does not have this accessibility feature in the future.
-
-// New code for A2
 "use client";
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import * as db from "../../../../Database"; // All data: assignments, courses, modules
 import { Form, FormControl, FormLabel, FormSelect, Row, Col, Button } from "react-bootstrap";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
+  const assignment = db.assignments.find(a => a._id === aid);
+
+  if (!assignment) {
+    return <div>Error: Assignment not found</div>;
+  }
 
   return (
     <div id="wd-assignments-editor" className="p-4">
@@ -19,7 +20,7 @@ export default function AssignmentEditor() {
         <FormLabel htmlFor="wd-name">Assignment Name</FormLabel>
         <FormControl 
           id="wd-name" 
-          defaultValue="Assignment X" 
+          defaultValue={assignment.title} 
           className="mb-3"
         />
 
@@ -29,7 +30,7 @@ export default function AssignmentEditor() {
           as="textarea"
           id="wd-description"
           rows={4}
-          defaultValue="The assignment is available online. Submit a link to the landing page"
+          defaultValue={assignment.description || ""}
           className="mb-3"
         />
 
@@ -44,7 +45,7 @@ export default function AssignmentEditor() {
             <FormControl 
               id="wd-points" 
               type="number" 
-              defaultValue={100}
+              defaultValue={assignment.points || 0}
             />
           </Col>
         </Row>
@@ -57,7 +58,7 @@ export default function AssignmentEditor() {
             </FormLabel>
           </Col>
           <Col md={9}>
-            <FormSelect id="wd-group" defaultValue="ASSIGNMENTS">
+            <FormSelect id="wd-group" defaultValue={assignment.group || "ASSIGNMENTS"}>
               <option value="ASSIGNMENTS">Assignments</option>
               <option value="QUIZZES">Quizzes</option>
               <option value="EXAMS">Exams</option>
@@ -74,7 +75,7 @@ export default function AssignmentEditor() {
             </FormLabel>
           </Col>
           <Col md={9}>
-            <FormSelect id="wd-display-grade-as" defaultValue="Percentage">
+            <FormSelect id="wd-display-grade-as" defaultValue={assignment.gradeDisplay || "Percentage"}>
               <option value="Percentage">Percentage</option>
               <option value="Letter">Letter Grade</option>
             </FormSelect>
@@ -90,48 +91,33 @@ export default function AssignmentEditor() {
           </Col>
           <Col md={9}>
             <div className="border rounded p-3">
-              <FormSelect id="wd-submission-type" defaultValue="Online" className="mb-3">
+              <FormSelect 
+                id="wd-submission-type" 
+                defaultValue={assignment.submissionType || "Online"} 
+                className="mb-3"
+              >
                 <option value="Online">Online</option>
                 <option value="Paper">Paper</option>
                 <option value="External Tool">External Tool</option>
               </FormSelect>
 
               {/* Online Entry Options */}
-              <div>
-                <strong>Online Entry Options</strong>
-                <div className="mt-2">
-                  <Form.Check 
-                    type="checkbox"
-                    id="wd-chkbox-text-entry"
-                    label="Text Entry"
-                    name="check-options"
-                  />
-                  <Form.Check 
-                    type="checkbox"
-                    id="wd-chkbox-website-url"
-                    label="Website URL"
-                    name="check-options"
-                  />
-                  <Form.Check 
-                    type="checkbox"
-                    id="wd-chkbox-media-recordings"
-                    label="Media Recordings"
-                    name="check-options"
-                  />
-                  <Form.Check 
-                    type="checkbox"
-                    id="wd-chkbox-student-annotations"
-                    label="Student Annotation"
-                    name="check-options"
-                  />
-                  <Form.Check 
-                    type="checkbox"
-                    id="wd-chkbox-file-uploads"
-                    label="File Uploads"
-                    name="check-options"
-                  />
+              {assignment.submissionType === "Online" && (
+                <div>
+                  <strong>Online Entry Options</strong>
+                  <div className="mt-2">
+                    {["Text Entry", "Website URL", "Media Recordings", "Student Annotation", "File Uploads"].map(option => (
+                      <Form.Check
+                        key={option}
+                        type="checkbox"
+                        label={option}
+                        defaultChecked={assignment.onlineOptions?.includes(option) || false}
+                        className="mb-1"
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </Col>
         </Row>
@@ -145,13 +131,12 @@ export default function AssignmentEditor() {
           </Col>
           <Col md={9}>
             <div className="border rounded p-3">
-              {/* Assign to */}
               <FormLabel htmlFor="wd-assign-to" className="fw-bold">
                 Assign to
               </FormLabel>
               <FormControl 
                 id="wd-assign-to" 
-                defaultValue="Everyone"
+                defaultValue={assignment.assignTo || "Everyone"}
                 className="mb-3"
               />
 
@@ -162,7 +147,7 @@ export default function AssignmentEditor() {
               <FormControl 
                 id="wd-due-date"
                 type="date"
-                defaultValue="2025-10-06"
+                defaultValue={assignment.dueDate || ""}
                 className="mb-3"
               />
 
@@ -175,7 +160,7 @@ export default function AssignmentEditor() {
                   <FormControl 
                     id="wd-available-from"
                     type="date"
-                    defaultValue="2025-10-05"
+                    defaultValue={assignment.availableFrom || ""}
                   />
                 </Col>
                 <Col md={6}>
@@ -185,7 +170,7 @@ export default function AssignmentEditor() {
                   <FormControl 
                     id="wd-available-until"
                     type="date"
-                    defaultValue="2025-10-06"
+                    defaultValue={assignment.availableUntil || ""}
                   />
                 </Col>
               </Row>
