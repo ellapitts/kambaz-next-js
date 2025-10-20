@@ -35,8 +35,8 @@ export default function KambazNavigation() {
       href="https://www.northeastern.edu/"
         action 
         className="bg-black border-0 text-center"> 
-        <img src="/images/NEU.png" width="75px" /></ListGroupItem
-        >
+        <img src="/images/NEU.png" width={75} alt="Northeastern University logo" />
+        </ListGroupItem>
 
       {/* Account */}
            <ListGroupItem
