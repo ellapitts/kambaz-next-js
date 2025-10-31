@@ -1,21 +1,23 @@
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, ListGroup, ListGroupItem } from "react-bootstrap";
+import { useSelector } from "react-redux";
+
+type RootState = {
+  todosReducer: {
+    todos: Array<{ id: string; title: string }>;
+  };
+};
 
 export default function ArrayStateVariable() {
+  const { todos } = useSelector((state: RootState) => state.todosReducer);
   const [array, setArray] = useState([1, 2, 3, 4, 5]);
 
   const addElement = () => {
-    {
-      /* event handler appends random num at end of array */
-    }
     setArray([...array, Math.floor(Math.random() * 100)]);
   };
 
   const deleteElement = (index: number) => {
     setArray(array.filter((item, i) => i !== index));
-    {
-      /* event handler removes element by index  */
-    }
   };
 
   return (
@@ -23,7 +25,7 @@ export default function ArrayStateVariable() {
       <h2>Array State Variable</h2>
       <Button variant="btn btn-success" onClick={addElement} className="mb-3">
         Add Element
-      </Button>{" "}
+      </Button>
       {/* button calls addElement to append to array iterate over array items*/}
       <ul className="list-unstyled">
         {array.map((item, index /* render item's value */) => (
@@ -40,6 +42,15 @@ export default function ArrayStateVariable() {
         ))}
       </ul>
       <hr />
+
+      {/* New section added to display the todos */ }
+      <ListGroup>
+        {todos.map((todo: {id: string; title: string}) => (
+          <ListGroupItem key={todo.id}>
+            {todo.title}
+          </ListGroupItem>
+        ))}
+      </ListGroup>
     </div>
   );
 }

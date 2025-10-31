@@ -1,14 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import React from "react";
 
 export default function EventObject() {
  const [event, setEvent] = useState(null);
-  const handleClick = (e: any) => {
-    e.target = e.target.outerHTML;
-    delete e.view;
-    setEvent(e);
-  };
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ const handleClick = (e: any) => {
+  e.target = e.target.outerHTML;
+  delete e.view;
+  setEvent(e);
+};
 
   return (
     <div>
