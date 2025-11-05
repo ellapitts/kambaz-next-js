@@ -301,16 +301,15 @@ export default function Lab1() {
       <input type="date" defaultValue="2000-01-21" id="wd-text-fields-dob" />
       <br />
       {/*ANCHOR TAG TO MY GITHUB*/}
-      <h4>Anchor Tag</h4>My GitHub link:
+      <h4>Anchor Tag</h4>
+      My GitHub link:   
       <a
-        href="https://github.com/ellapitts/kambaz-next-js/tree/main/src/app/Labs/Lab1"
+        href="https://github.com/ellapitts/kambaz-next-js/tree/A1"
         id="wd-github"
-      >
-        {" "}
-        click here
+      > <br />
+        Ella Pitts Github
       </a>
       <br />
-      to get to my GitHub repository for this module.
       <br />
     </>
   );
