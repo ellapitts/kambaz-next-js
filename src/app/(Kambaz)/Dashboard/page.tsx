@@ -1,8 +1,7 @@
 // This is the dashboard course page
 "use client";
-import { useState } from "react"; // add useState hook to remember informaiton bewteen renders
+import { useState } from "react";
 import Link from "next/link";
-import * as db from "../Database";
 import {
   Card,
   CardImg,
@@ -14,10 +13,17 @@ import {
   Col,
   FormControl,
 } from "react-bootstrap";
-import { v4 as uuidv4 } from "uuid";
+
+// Redux imports
+import { useDispatch, useSelector } from "react-redux";
+import { addNewCourse, deleteCourse, updateCourse } from "../Courses/reducer";
+import { RootState } from "../store";
 
 export default function Dashboard() {
-  const [courses, setCourses] = useState<any[]>(db.courses);
+  const { courses } = useSelector((state: RootState) => state.coursesReducer);
+  const dispatch = useDispatch();
+
+  // Local state for editing/adding a course only
   const [course, setCourse] = useState<any>({
     _id: "0",
     name: "New Course",
@@ -28,67 +34,53 @@ export default function Dashboard() {
     description: "New Description",
   });
 
-  // Adds course to dashboard initialization
-  const addNewCourse = () => {
-    // creates addnewCourse event handler that sets courses as copy of current course state array
-    const newCourse = { ...course, _id: uuidv4() }; // add course ad end fo the array, overriding _id to current time stamp
-    setCourses([...courses, newCourse]);
-  };
-
-  // Deletes course on dashboard initialization
-  const deleteCourse = (courseId: string) => {
-    // add deleteCourse event handler accepting
-    setCourses(courses.filter((course) => course._id !== courseId)); // ID of course to remove by filtering out the course by its ID
-  };
-
-  // Edit button
-const updateCourse = () => {
-    setCourses(
-      courses.map((c) => {
-        if (c._id === course._id) {
-          return course;
-        } else {
-          return c;
-        }
-      })
-    );
-  };
-
   return (
     <div id="wd-dashboard">
-      <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
-      {/* Add New Course Button */}
+      <h1 id="wd-dashboard-title">Dashboard</h1>
+      <hr />
+
+      {/* Add / Update Buttons */}
       <h5>
         New Course
         <button
           className="btn btn-primary float-end"
           id="wd-add-new-course-click"
-          onClick={addNewCourse}
+          onClick={() => dispatch(addNewCourse(course))}
         >
-          Add{" "}
+          Add
         </button>
         <button
           className="btn btn-warning float-end me-2"
-          onClick={updateCourse}
           id="wd-update-course-click"
+          onClick={() => dispatch(updateCourse(course))}
         >
-          Update{" "}
+          Update
         </button>
-        {/* add a button to invoke addNewCourse */}
       </h5>
-      <hr /> <br />
+      <hr />
+      <br />
+
+      {/* Course Form */}
       <FormControl
         value={course.name}
         className="mb-2"
         onChange={(e) => setCourse({ ...course, name: e.target.value })}
       />
       <FormControl
+        as="textarea"
         value={course.description}
         rows={3}
-        onChange={(e) => setCourse({ ...course, description: e.target.value })}
+        onChange={(e) =>
+          setCourse({ ...course, description: e.target.value })
+        }
       />
-      <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2>{" "}
+
+      <h2 id="wd-dashboard-published">
+        Published Courses ({courses.length})
+      </h2>
       <hr />
+
+      {/* Course Cards */}
       <div id="wd-dashboard-courses">
         <Row xs={1} md={2} lg={3} xl={4} className="g-4">
           {courses.map((course) => (
@@ -107,7 +99,7 @@ const updateCourse = () => {
                     variant="top"
                     height={160}
                   />
-                  <CardBody className="card-body">
+                  <CardBody>
                     <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">
                       {course.name}
                     </CardTitle>
@@ -119,31 +111,31 @@ const updateCourse = () => {
                     </CardText>
 
                     <div className="d-flex justify-content-between">
-                    <Button variant="primary">Go</Button>
+                      <Button variant="primary">Go</Button>
 
-                    {/* Editing a course */}
-                    <button
-                      id="wd-edit-course-click"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        setCourse(course);
-                      }}
-                      className="btn btn-warning me-2 float-end"
-                    >
-                      Edit
-                    </button>
+                      {/* Edit Course */}
+                      <button
+                        id="wd-edit-course-click"
+                        className="btn btn-warning me-2 float-end"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          setCourse(course);
+                        }}
+                      >
+                        Edit
+                      </button>
 
-                    {/* Delete Course Button */}
-                    <button
-                      onClick={(evenet) => {
-                        evenet.preventDefault();
-                        deleteCourse(course._id);
-                      }}
-                      className="btn btn-danger float-end"
-                      id="wd-delete-course-click"
-                    >
-                      Delete
-                    </button>
+                      {/* Delete Course */}
+                      <button
+                        className="btn btn-danger float-end"
+                        id="wd-delete-course-click"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          dispatch(deleteCourse(course._id));
+                        }}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </CardBody>
                 </Link>
