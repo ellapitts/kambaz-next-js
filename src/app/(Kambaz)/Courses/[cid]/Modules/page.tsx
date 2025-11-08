@@ -1,5 +1,8 @@
-// Modules page for a specific course
+
 "use client"; // Client-side component
+import { addModule, editModule, updateModule, deleteModule } "./reducers";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../store";
 
 import { useParams } from "next/navigation"; // Get dynamic route params
 import * as db from "../../../Database"; // Import database data (modules, courses, etc.)
@@ -24,16 +27,17 @@ interface Module {
   lessons?: Lesson[];
 }
 export default function Modules() {
+  // Constants 
   const { cid } = useParams(); // Get course ID from URL
-  const modules = db.modules; // Load all modules from the database
-
+  const [moduleName, setModuleName] = useState("");
+  const { modules } = useSelector((state: RootState) => state.modulesReducer);
   // Filter modules for this course
   const courseModules = modules.filter((module: Module) => module.course === cid);
-
+  const dispatch = useDispatch();
+  
   return (
     <div className="modules-page">
       <ModuleControls /> {/* Top-level controls for all modules */}
-
       <ListGroup className="rounded-0 mt-4" id="wd-modules">
         {courseModules.map((module: Module) => (
           <div key={module._id} className="module-container mb-3">
