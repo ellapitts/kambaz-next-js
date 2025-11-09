@@ -1,5 +1,7 @@
 // This is the dashboard course page
 "use client";
+
+import * as db from "../Database";
 import { useState } from "react";
 import Link from "next/link";
 import {
@@ -21,6 +23,11 @@ import { RootState } from "../store";
 
 export default function Dashboard() {
   const { courses } = useSelector((state: RootState) => state.coursesReducer);
+  const { currentUser } = useSelector(
+    (state: RootState) => state.accountReducer
+  ) as {currentUser: {_id: string } | null };
+
+  const { enrollments } = db;
   const dispatch = useDispatch();
 
   // Local state for editing/adding a course only
@@ -70,53 +77,62 @@ export default function Dashboard() {
         as="textarea"
         value={course.description}
         rows={3}
-        onChange={(e) =>
-          setCourse({ ...course, description: e.target.value })
-        }
+        onChange={(e) => setCourse({ ...course, description: e.target.value })}
       />
 
-      <h2 id="wd-dashboard-published">
-        Published Courses ({courses.length})
-      </h2>
+      <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2>
       <hr />
 
       {/* Course Cards */}
       <div id="wd-dashboard-courses">
         <Row xs={1} md={2} lg={3} xl={4} className="g-4">
-          {courses.map((course) => (
-            <Col
-              key={course._id}
-              className="wd-dashboard-course"
-              style={{ width: "350px" }}
-            >
-              <Card>
-                <Link
-                  href={`/Courses/${course._id}/Home`}
-                  className="wd-dashboard-course-link text-decoration-none text-dark"
-                >
-                  <CardImg
-                    src="/images/introtocompsci.jpg"
-                    variant="top"
-                    height={160}
-                  />
-                  <CardBody>
-                    <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">
-                      {course.name}
-                    </CardTitle>
-                    <CardText
-                      className="wd-dashboard-course-description overflow-hidden"
-                      style={{ height: "100px" }}
-                    >
-                      {course.description}
-                    </CardText>
+          {courses
+            .filter((course) =>
+              currentUser
+                ? enrollments.some(
+                    (enrollment) =>
+                      enrollment.user === currentUser?._id &&
+                      enrollment.course === course._id
+                  )
+                : false
+            )
+            .map((course) => (
+              <Col
+                key={course._id}
+                className="wd-dashboard-course"
+                style={{ width: "350px" }}
+              >
+                <Card>
+                  <Link
+                    href={`/Courses/${course._id}/Home`}
+                    className="wd-dashboard-course-link text-decoration-none text-dark"
+                  >
+                    <CardImg
+                      src="/images/introtocompsci.jpg"
+                      variant="top"
+                      height={160}
+                    />
+                    <CardBody>
+                      <CardTitle className="wd-dashboard-course-title text-nowrap overflow-hidden">
+                        {course.name}
+                      </CardTitle>
+                      <CardText
+                        className="wd-dashboard-course-description overflow-hidden"
+                        style={{ height: "100px" }}
+                      >
+                        {course.description}
+                      </CardText>
+                    </CardBody>
+                  </Link>
 
+                  <CardBody className="pt-0">
                     <div className="d-flex justify-content-between">
                       <Button variant="primary">Go</Button>
 
                       {/* Edit Course */}
                       <button
                         id="wd-edit-course-click"
-                        className="btn btn-warning me-2 float-end"
+                        className="btn btn-warning me-2"
                         onClick={(event) => {
                           event.preventDefault();
                           setCourse(course);
@@ -127,7 +143,7 @@ export default function Dashboard() {
 
                       {/* Delete Course */}
                       <button
-                        className="btn btn-danger float-end"
+                        className="btn btn-danger"
                         id="wd-delete-course-click"
                         onClick={(event) => {
                           event.preventDefault();
@@ -138,10 +154,9 @@ export default function Dashboard() {
                       </button>
                     </div>
                   </CardBody>
-                </Link>
-              </Card>
-            </Col>
-          ))}
+                </Card>
+              </Col>
+            ))}
         </Row>
       </div>
     </div>
