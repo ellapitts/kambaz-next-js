@@ -8,25 +8,32 @@ import CourseNavigation from "./cid_navigation"; // needed for the course nav. s
 import { useSelector } from "react-redux";
 import { useParams } from "next/navigation";
 import { RootState } from "../../store";
-
-// older stuff 
-import { FaAlignJustify } from "react-icons/fa"; // needed for the heading
+import { useState } from "react";
+import { FaAlignJustify } from "react-icons/fa"; // for the heading and hamburger icon
 
 export default function CoursesLayout({ children }: { children: ReactNode }) {
   const { cid } = useParams(); 
   const { courses}  = useSelector((state: RootState) => state.coursesReducer);
   const course = courses.find((course: any) => course._id === cid);
+
+  const [showNav, setShowNav] =  useState(true); // hamburger bar visibility
   return (
     <div id="wd-courses">
       <h2 className="text-danger">
-        <FaAlignJustify className="me-4 fs-4 mb-1" />
+        <FaAlignJustify className="me-4 fs-4 mb-1" 
+        style={{ cursor: "pointer" }} 
+        onClick={() => setShowNav(!showNav)} /* Toggle activity for nav hamburger bar */
+        />
         {course?.name}
       </h2>
       <hr />
       <div className="d-flex">
-        <div className="d-none d-md-block" style={{ width: "320px" }}>
+        { /* renders sidebar based on the state */ }
+        {showNav && (
+          <div className="d-none d-md-block" style={{ width: "320px" }}>
           <CourseNavigation />
         </div>
+        )}
         <div className="flex-fill">{children}</div>
       </div>
     </div>
