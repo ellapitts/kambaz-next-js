@@ -226,7 +226,7 @@ export default function AssignmentEditor() {
               </FormLabel>
               <FormControl
                 id="wd-assign-to"
-                value={assignment.assignTo}
+                value={assignment.assignTo || ""}
                 onChange={(e: any) =>
                   setAssignment({ ...assignment, assignTo: e.target.value })
                 }
