@@ -1,4 +1,4 @@
-// This is the dashboard course page
+// Dashboard page: displas all courses and allows users to enroll, unenroll, or manage the state.
 "use client";
 import { useState } from "react";
 import Link from "next/link";
@@ -21,18 +21,26 @@ import { RootState } from "../store";
 import { enrollCourse, unenrollCourse } from "./enrollmentsReducer";
 
 export default function Dashboard() {
+  // Grab all courses from Redux 
   const { courses } = useSelector((state: RootState) => state.coursesReducer);
+  
+  // Get current signed-in user from Redux
   const { currentUser } = useSelector(
     (state: RootState) => state.accountReducer
   ) as { currentUser: { _id: string; role: string } | null };
 
-  const { enrollments } = useSelector(
+  // get all enrollments from Redux
+    const { enrollments } = useSelector(
     (state: RootState) => state.enrollmentsReducer
   );
 
+  // Dispatch function -- trigger Redux 
   const dispatch = useDispatch();
+  
+  // Tracks whether to show all or ust user's enrollment
   const [showAllCourses, setShowAllCourses] = useState(false);
 
+  // Faculty only - template for creating new courses
   const [course, setCourse] = useState<any>({
     _id: "0",
     name: "New Course",
@@ -43,18 +51,16 @@ export default function Dashboard() {
     description: "New Description",
   });
 
+
+  // Helper funct. check if user is enrolled in spec. course.
   const isEnrolled = (courseId: string) => {
     return enrollments.some(
       (e: any) => e.user === currentUser?._id && e.course === courseId
     );
   };
 
-  const handleEnroll = (courseId: string) => {
-    if (!currentUser) return;
-    dispatch(enrollCourse({ userId: currentUser._id, courseId }));
-  };
-
-  const handleUnenroll = (courseId: string) => {
+  // Unenroll helper funct for currentUser from course
+  const unenroll = (courseId: string) => {
     if (!currentUser) return;
     dispatch(unenrollCourse({ userId: currentUser._id, courseId }));
   };
@@ -62,15 +68,19 @@ export default function Dashboard() {
   return (
     <div id="wd-dashboard">
       <h1 id="wd-dashboard-title">Dashboard</h1>
+
+      {/* BLUE Enrollment toggel button.
+      Switches between User's Courses and ALL COURSES */}
+
       <Button
         variant="primary"
         onClick={() => setShowAllCourses(!showAllCourses)}
-        className="float-end"
       >
         {showAllCourses ? "My Courses" : "Enrollments"}
       </Button>
       <hr />
-
+      
+      {/* FACULTY SECTION: Only visible to faculty users when showing "My Courses" */}
       {currentUser?.role === "FACULTY" && !showAllCourses && (
         <>
           <h5>
@@ -81,6 +91,8 @@ export default function Dashboard() {
             >
               Add
             </button>
+
+            {/* Update existing course */}
             <button
               className="btn btn-warning float-end me-2"
               onClick={() => dispatch(updateCourse(course))}
@@ -90,11 +102,15 @@ export default function Dashboard() {
           </h5>
           <hr />
           <br />
+
+          {/* Text input for editing course name */}
           <FormControl
             value={course.name}
             className="mb-2"
             onChange={(e) => setCourse({ ...course, name: e.target.value })}
           />
+
+          {/* Text area for editing course description */}
           <FormControl
             as="textarea"
             value={course.description}
@@ -106,23 +122,28 @@ export default function Dashboard() {
         </>
       )}
 
+            {/* Header updates dynamically based on the view */}
       <h2 id="wd-dashboard-published">
         {showAllCourses ? "All Courses" : "Published Courses"} (
         {courses.length})
       </h2>
       <hr />
-
+      
+      {/* Courses grid */}
       <div id="wd-dashboard-courses">
         <Row xs={1} md={2} lg={3} xl={4} className="g-4">
+
+          {/* Loop and filter through courses depending on mode of user */}
           {courses
             .filter((course) => {
-              if (showAllCourses) return true;
-              if (!currentUser) return false;
-              return isEnrolled(course._id);
+              if (showAllCourses) return true; // If all courses mode - show every course
+              if (!currentUser) return false; // if user not logged in - show nothing
+              return isEnrolled(course._id); // else: show only courses the user enrolled in
             })
             .map((course) => (
               <Col key={course._id} style={{ width: "350px" }}>
                 <Card>
+                  {/* Course image, title, and description link */}
                   <Link
                     href={`/Courses/${course._id}/Home`}
                     className="text-decoration-none text-dark"
@@ -139,28 +160,34 @@ export default function Dashboard() {
                       </CardText>
                     </CardBody>
                   </Link>
-
+                    {/* Action button area under each course card */}
                   <CardBody className="pt-0">
                     <div className="d-flex justify-content-between">
+                      {/* Shows GO button */}
                       <Button variant="primary">Go</Button>
-
+                      {/* ENROLL / UNENROLL BUTTONS */}
                       {showAllCourses && currentUser && (
                         isEnrolled(course._id) ? (
+                          // If user is already enrolled - show red Unenroll
                           <Button
                             variant="danger"
                             onClick={(e) => {
                               e.preventDefault();
-                              handleUnenroll(course._id);
+                              unenroll(course._id);
                             }}
                           >
                             Unenroll
                           </Button>
                         ) : (
+                          // if user NOT ENROLLED,show green enroll
                           <Button
                             variant="success"
                             onClick={(e) => {
                               e.preventDefault();
-                              handleEnroll(course._id);
+                              ((courseId: string) => {
+                                if (!currentUser) return;
+                                dispatch(enrollCourse({ userId: currentUser._id, courseId }));
+                              })(course._id);
                             }}
                           >
                             Enroll
@@ -168,8 +195,10 @@ export default function Dashboard() {
                         )
                       )}
 
+                      {/* Faculty-only Edit/Delete buttons */}
                       {!showAllCourses && (
                         <>
+                        {/* Edit course */}
                           <button
                             className="btn btn-warning me-2"
                             onClick={(e) => {
@@ -179,6 +208,8 @@ export default function Dashboard() {
                           >
                             Edit
                           </button>
+
+                          {/* Delete course */}
                           <button
                             className="btn btn-danger"
                             onClick={(e) => {
