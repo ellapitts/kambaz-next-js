@@ -9,16 +9,10 @@ const initialState = {
 
 // Reducer's initial state w/ default assignments copied from database created.
 const assignmentsSlice = createSlice({
-  // create slice
-  // name the slice
-  // set initial state
-  // declare reducer functions
-
   name: "assignments",
   initialState,
   reducers: {
-    // new assignment is in action.payload
-    // update assignments in state adding new assignment
+    // add new assignment
     addAssignment: (state, { payload: assignment }) => {
       const newAssignment: any = {
         _id: uuidv4(),
