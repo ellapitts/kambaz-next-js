@@ -1,37 +1,31 @@
 "use client";
-
-import { ListGroupItem, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { deleteTodo, setTodo } from "./todosReducer";
+import { Button, ListGroupItem } from "react-bootstrap";
 
-type Todo = {
-  id: string;
-  title: string;
-};
+export default function TodoItem({ todo }: any) {
+  const dispatch = useDispatch();
 
-export default function TodoItem({ todo }: {todo: Todo }) {
-  // breaks out todo item
-  //   todo: { id: string; title: string }; // todo to render
-  //   deleteTodo: (id: string) => void; // event handler to remove todo
-  //   setTodo: (todo: { id: string; title: string }) => void; // event handler to select todo
-    const dispatch = useDispatch();
-    return (
-      <ListGroupItem key={todo.id}>
-        <Button
-          variant="danger"
-          onClick={() => dispatch(deleteTodo(todo.id))} // wrap reducer functions with dispatch
+  return (
+    <ListGroupItem className="d-flex justify-content-between align-items-center">
+      <span>{todo.title}</span>
+      <div>
+        <Button 
+          variant="primary"  // ✅ Blue (Edit)
+          onClick={() => dispatch(setTodo(todo))} 
+          id="wd-set-todo-click"
+          className="me-2"
+        >
+          Edit
+        </Button>
+        <Button 
+          variant="danger"  // ✅ Red (Delete)
+          onClick={() => dispatch(deleteTodo(todo.id))} 
           id="wd-delete-todo-click"
         >
           Delete
         </Button>
-        <Button
-          variant="primary"
-          onClick={() => dispatch(setTodo(todo))} // wrap reducer functions with dispatch
-          id="wd-set-todo-click"
-        >
-          Edit
-        </Button>
-        {todo.title}
-      </ListGroupItem> // render todo's title
-    );
-  }
+      </div>
+    </ListGroupItem>
+  );
+}

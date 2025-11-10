@@ -1,12 +1,7 @@
 import { useState } from "react";
 import { Button, ListGroup, ListGroupItem } from "react-bootstrap";
 import { useSelector } from "react-redux";
-
-type RootState = {
-  todosReducer: {
-    todos: Array<{ id: string; title: string }>;
-  };
-};
+import { RootState } from "./store/store";
 
 export default function ArrayStateVariable() {
   const { todos } = useSelector((state: RootState) => state.todosReducer);
@@ -45,7 +40,7 @@ export default function ArrayStateVariable() {
 
       {/* New section added to display the todos */ }
       <ListGroup>
-        {todos.map((todo: {id: string; title: string}) => (
+        {todos.map((todo: any) => (
           <ListGroupItem key={todo.id}>
             {todo.title}
           </ListGroupItem>

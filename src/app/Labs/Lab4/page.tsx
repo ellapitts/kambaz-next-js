@@ -25,7 +25,7 @@ export default function Lab4() {
     <Provider store={store}>
       <div>
         <h2>Lab 4 </h2>
-
+        <ReduxExamples />
         <ClickEvent />
         <PassingDataOnEvents />
         <PassingFunctions theFunction={sayHello} />
@@ -37,7 +37,6 @@ export default function Lab4() {
         <ObjectStateVariable />
         <ArrayStateVariable />
         <ParentStateComponent />
-        <ReduxExamples />
       </div>
     </Provider>
   );

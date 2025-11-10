@@ -1,19 +1,11 @@
 "use client";
-
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement } from "./counterReducer";
-
-type RootState = {
-  counterReducer: {
-    count: number;
-  };
-};
-
+import { RootState } from "../../store/store"; // From lab4 store
 
 export default function CounterRedux() {
     const { count } = useSelector((state: RootState) => state.counterReducer);
     const dispatch = useDispatch();
-    
     
     return (
         <div id="wd-counter-redux">

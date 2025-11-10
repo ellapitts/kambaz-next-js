@@ -6,6 +6,7 @@ const initialState = {
   ],
   todo: { title: "Learn Mongo" },
 };
+
 const todosSlice = createSlice({
   name: "todos",
   initialState,
@@ -18,10 +19,12 @@ const todosSlice = createSlice({
       state.todos = newTodos;
       state.todo = { title: "" };
     },
+
     deleteTodo: (state, action) => {
       const newTodos = state.todos.filter((todo) => todo.id !== action.payload);
       state.todos = newTodos;
     },
+
     updateTodo: (state, action) => {
       const newTodos = state.todos.map((item) =>
         item.id === action.payload.id ? action.payload : item
@@ -29,6 +32,7 @@ const todosSlice = createSlice({
       state.todos = newTodos;
       state.todo = { title: "" };
     },
+    
     setTodo: (state, action) => {
       state.todo = action.payload;
     },

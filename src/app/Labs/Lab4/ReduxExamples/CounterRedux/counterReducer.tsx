@@ -1,7 +1,6 @@
 // This practices changing and manipulating paramter that contain state vairables.
-
+"use client";
 import { createSlice } from "@reduxjs/toolkit";
-
 const initialState = {
   count: 0,
 };

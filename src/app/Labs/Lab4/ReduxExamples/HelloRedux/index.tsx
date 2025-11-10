@@ -1,9 +1,9 @@
 "use client";
 
 import { useSelector } from "react-redux"; 
-
+import { RootState } from "../../store/store";
 export default function HelloReudx() {
-    const { message } = useSelector((state: { helloReducer: { message: string }}) => state.helloReducer);
+    const { message } = useSelector((state: RootState) => state.helloReducer);
     return (
         <div id="wd-hello-redux">
             <h3>Hello Redux</h3>
