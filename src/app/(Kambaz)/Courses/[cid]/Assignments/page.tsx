@@ -16,9 +16,6 @@ export default function Assignments() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  // // State for assignment name in modal
-  // const [assignmentName, setAssignmentName] = useState("");
-
   // Get assignments from Redux store inside the actual array
   const assignments = useSelector(
     (state: RootState) => state.assignmentsReducer.assignments
@@ -32,22 +29,6 @@ export default function Assignments() {
   if (!courseAssignments.length) {
     return <div>No assignments found for this course.</div>;
   }
-
-  // // Add assignment function
-  // const handleAddAssignment = () => {
-  //   dispatch(
-  //     addAssignment({
-  //       title: assignmentName,
-  //       course: cid,
-  //       description: "",
-  //       points: 100,
-  //       dueDate: "",
-  //       availableFrom: "",
-  //       availableUntil: "",
-  //     })
-  //   );
-  //   setAssignmentName(""); // Clear input after adding
-  // };
 
   // Delete assignment function
   const handleDelete = (assignmentId: string) => {
