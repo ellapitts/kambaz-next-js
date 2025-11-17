@@ -7,7 +7,6 @@ import { RootState } from "../../store";
 import * as client from "../client";
 import { Button, FormControl } from "react-bootstrap";
 
-
 export default function Profile() {
   const [profile, setProfile] = useState<any>({});
   const dispatch = useDispatch();
