@@ -1,6 +1,7 @@
 // Dashboard page: displas all courses and allows users to enroll, unenroll, or manage the state.
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import * as client from "../Courses/client";
 import {
@@ -18,8 +19,8 @@ import {
 // Redux imports
 import { useDispatch, useSelector } from "react-redux";
 import {
-  // addNewCourse, removed 
-  // deleteCourse, removed 
+  // addNewCourse, removed
+  // deleteCourse, removed
   //updateCourse,
   setCourses,
 } from "../Courses/reducer";
@@ -42,6 +43,9 @@ export default function Dashboard() {
 
   // Dispatch function -- trigger Redux
   const dispatch = useDispatch();
+
+  // Router
+  const router = useRouter();
 
   // Tracks whether to show all or ust user's enrollment
   const [showAllCourses, setShowAllCourses] = useState(false);
@@ -78,19 +82,26 @@ export default function Dashboard() {
   }, [currentUser]);
 
   // Delete existing course
-    const onDeleteCourse = async (courseId: string) => {
+  const onDeleteCourse = async (courseId: string) => {
     const status = await client.deleteCourse(courseId);
     dispatch(setCourses(courses.filter((course) => course._id !== courseId)));
   };
 
   // Update course
-    const onUpdateCourse = async () => {
+  const onUpdateCourse = async () => {
     await client.updateCourse(course);
-    dispatch(setCourses(courses.map((c) => {
-        if (c._id === course._id) { return course; }
-        else { return c; }
-    })));};
-
+    dispatch(
+      setCourses(
+        courses.map((c) => {
+          if (c._id === course._id) {
+            return course;
+          } else {
+            return c;
+          }
+        })
+      )
+    );
+  };
 
   // Helper funct. check if user is enrolled in spec. course.
   const isEnrolled = (courseId: string) => {
@@ -198,7 +209,10 @@ export default function Dashboard() {
                 <CardBody className="pt-0">
                   <div className="d-flex justify-content-between">
                     {/* Shows GO button */}
-                    <Button variant="primary">Go</Button>
+                    <Button variant="primary"
+                    onClick={() => router.push(`/Courses/${course._id}/Home`)}>
+                      Go
+                      </Button>
                     {/* ENROLL / UNENROLL BUTTONS */}
                     {showAllCourses &&
                       currentUser &&
