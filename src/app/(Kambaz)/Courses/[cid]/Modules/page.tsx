@@ -1,10 +1,11 @@
 // Modules page for a specific course
 "use client"; 
-import { useState } from "react"; // React state management
+import * as client from "../../client";
+import { useState, useEffect } from "react"; // React state management
 import { useParams } from "next/navigation"; // Get dynamic route params
 
 // redux imports 
-import { addModule, editModule, updateModule, deleteModule } from "./reducer";
+import { editModule, updateModule, deleteModule, setModules } from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store";
 
@@ -21,44 +22,52 @@ export default function Modules() {
   
   // Get modules from Redux 
   const { modules } = useSelector((state: RootState) => state.modulesReducer);
+
   const dispatch = useDispatch(); // get dispatch to call reducer function 
-  const courseModules = modules.filter((module: any) => module.course === cid); // filters modules for this course
+  //const courseModules = modules.filter((module: any) => module.course === cid); // filters modules for this course
 
-  // // Add new module 
-  // const addModule = () => {
-  //   setModules([...modules, { _id: uuidv4(), name: moduleName, course: cid, lessons: [] }]);
-  //   setModuleName("");
-  // };
+  const fetchModules = async () => {
+    const modules = await client.findModulesForCourse(cid as string);
+    dispatch(setModules(modules));
+  };
+  useEffect(() => {
+    fetchModules();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cid]); // cid added as dependency
 
-  // // Delete module by ID
-  // const deleteModule = (moduleId: string) => {
-  //   setModules(modules.filter((module) => module._id !== moduleId));
-  // };
+  // Create modules for course
+  const onCreateModuleForCourse = async () => {
+    if (!cid) return;
+    const newModule = { name: moduleName, course: cid };
+    const createdModule = await client.createModuleForCourse(cid as string, newModule);
+    dispatch(setModules([...modules, createdModule]));
+    setModuleName("");
+  };
 
-  // // Edit module name by ID
-  // // sets module editing state to true to show input field
-  // const editModule = (moduleId: string) => {
-  //   setModules(modules.map((m) => (m._id === moduleId ? { ...m, editing: true } : m)));
-  // }; 
+  // Remove module
+   const onRemoveModule = async (moduleId: string) => {
+    await client.deleteModule(moduleId);
+    dispatch(setModules(modules.filter((m: any) => m._id !== moduleId)));
+  };
 
-  // Update module name
-  // updates any fields of a module 
-  //   const updateModule = (module: any) => {
-  //     setModules(modules.map((m) => (m._id === module._id ? module : m)));
-  // };
+  // Update Module
+   const onUpdateModule = async (module: any) => {
+    await client.updateModule(module);
+    const newModules = modules.map((m: any) => m._id === module._id ? module : m );
+    dispatch(setModules(newModules));
+  };
+
+
 
   return (
     <div className="modules-page">
       <ModulesControls 
       setModuleName={setModuleName} 
       moduleName={moduleName} 
-      addModule={() => {
-        dispatch(addModule({ name: moduleName, course: cid }));
-        setModuleName("");
-      }} />
+      addModule={onCreateModuleForCourse} />
 
       <ListGroup className="rounded-0 mt-4" id="wd-modules">
-        {courseModules.map((module: any) => (
+        {modules.map((module: any) => (
           <div key={module._id} className="module-container mb-3">
             
             {/* Module header */}
@@ -76,8 +85,7 @@ export default function Modules() {
               }
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                      dispatch(
-                      updateModule({ ...module, editing: false }));
+                      onUpdateModule({ ...module, editing: false });
                     }
                   }}
                   defaultValue={module.name} />
@@ -87,7 +95,7 @@ export default function Modules() {
               {/* Buttons for module-level actions */}
               <ModuleControlButtons 
               moduleId={module._id}
-              deleteModule={(moduleId) => dispatch(deleteModule(moduleId))}
+              deleteModule={(moduleId) => onRemoveModule(moduleId)}
               editModule={(moduleId) => dispatch(editModule(moduleId))}
               /> 
             </div>
