@@ -1,3 +1,4 @@
+// Assignment editor page
 "use client";
 
 import { useState, useEffect } from "react";
@@ -6,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../../store";
 import { addAssignment, updateAssignment } from "../reducer";
 import { Form, FormControl, FormSelect, FormLabel, Row, Col, Button } from "react-bootstrap";
-
+import * as client from "../client"
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
   const router = useRouter();
@@ -41,18 +42,25 @@ export default function AssignmentEditor() {
     }
   }, [existingAssignment]);
 
-  const handleSave = () => {
-    if (isNew) {
-      // Create a new assignment on server
-      dispatch(addAssignment(assignment));
-    } else {
-      // Update existing assignment on erver
-      dispatch(updateAssignment(assignment));
+  const handleSave = async () => {
+    try {
+      if (isNew) {
+        const newAssignment = await client.createAssignmentForCourse(cid as string, assignment);
+        // Create a new assignment on server
+        dispatch(addAssignment(newAssignment));
+      } else {
+        // Update existing assignment on erver
+        const status = await client.updateAssignment(assignment);
+        dispatch(updateAssignment(assignment));
+      }
+      router.push(`/Courses/${cid}/Assignments`);
+    } catch (error) {
+      console.error("Failed to save assignment:", error);
     }
-    router.push(`/Courses/${cid}/Assignments`);
   };
 
   const handleCancel = () => {
+
     router.push(`/Courses/${cid}/Assignments`);
   };
 

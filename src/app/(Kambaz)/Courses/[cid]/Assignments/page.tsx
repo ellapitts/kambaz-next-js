@@ -42,10 +42,12 @@ export default function Assignments() {
 
   // Delete assignment function
   const handleDelete = async (assignmentId: string) => {
-    if (window.confirm("Are you sure you want to delete this assignment?"))
+    if (!window.confirm("Are you sure you want to delete this assignment?")) {
+      return; // exit early if cancelled
+    }
       // Dispatch delete action
       await client.deleteAssignment(assignmentId); // deletes on server
-    dispatch(deleteAssignment(assignmentId)); // deletes on Redux
+      dispatch(deleteAssignment(assignmentId)); // deletes on Redux
   };
 
   return (
