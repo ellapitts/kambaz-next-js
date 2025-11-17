@@ -43,8 +43,10 @@ export default function AssignmentEditor() {
 
   const handleSave = () => {
     if (isNew) {
+      // Create a new assignment on server
       dispatch(addAssignment(assignment));
     } else {
+      // Update existing assignment on erver
       dispatch(updateAssignment(assignment));
     }
     router.push(`/Courses/${cid}/Assignments`);

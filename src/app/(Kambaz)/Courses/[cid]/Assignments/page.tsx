@@ -1,15 +1,16 @@
 // src/app/(Kambaz)/Courses/[cid]/Assignments/page.tsx
 "use client";
 
-// import { useState } from "react";
+import { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store";
 import AssignmentControls from "./AssignmentControls";
 import { Button, ListGroup, ListGroupItem } from "react-bootstrap";
 import { BsGripVertical, BsThreeDotsVertical } from "react-icons/bs";
-import { deleteAssignment } from "./reducer";
+import { deleteAssignment, setAssignments } from "./reducer";
 import { FaPlus, FaPencil, FaTrash } from "react-icons/fa6";
+import * as client from "./client";
 
 export default function Assignments() {
   const { cid } = useParams();
@@ -21,6 +22,15 @@ export default function Assignments() {
     (state: RootState) => state.assignmentsReducer.assignments
   );
 
+  useEffect(() => {
+    const fetchAssignments = async () => {
+      if (!cid) return;
+      const assignments = await client.findAssignmentsForCourse(cid as string);
+      dispatch(setAssignments(assignments));
+    };
+    fetchAssignments();
+  }, [cid, dispatch]);
+
   // Filter array for this course
   const courseAssignments = assignments.filter(
     (assignment: any) => assignment.course === cid
@@ -31,10 +41,11 @@ export default function Assignments() {
   }
 
   // Delete assignment function
-  const handleDelete = (assignmentId: string) => {
+  const handleDelete = async (assignmentId: string) => {
     if (window.confirm("Are you sure you want to delete this assignment?"))
       // Dispatch delete action
-      dispatch(deleteAssignment(assignmentId));
+      await client.deleteAssignment(assignmentId); // deletes on server
+    dispatch(deleteAssignment(assignmentId)); // deletes on Redux
   };
 
   return (
@@ -80,7 +91,7 @@ export default function Assignments() {
 
       {/* Assignment List */}
       <ListGroup className="rounded-0">
-        {courseAssignments.map((assignment: any) => (
+        {assignments.map((assignment: any) => (
           <ListGroupItem
             key={assignment._id}
             className="d-flex align-items-center justify-content-between p-3"

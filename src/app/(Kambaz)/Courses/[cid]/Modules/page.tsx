@@ -26,14 +26,14 @@ export default function Modules() {
   const dispatch = useDispatch(); // get dispatch to call reducer function 
   //const courseModules = modules.filter((module: any) => module.course === cid); // filters modules for this course
 
-  const fetchModules = async () => {
+  useEffect(() => {
+    const fetchModules = async () => {
     const modules = await client.findModulesForCourse(cid as string);
     dispatch(setModules(modules));
   };
-  useEffect(() => {
-    fetchModules();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cid]); // cid added as dependency
+  fetchModules();
+},
+[cid, dispatch]);
 
   // Create modules for course
   const onCreateModuleForCourse = async () => {
@@ -47,7 +47,7 @@ export default function Modules() {
   // Remove module
    const onRemoveModule = async (moduleId: string) => {
     await client.deleteModule(moduleId);
-    dispatch(setModules(modules.filter((m: any) => m._id !== moduleId)));
+    dispatch(deleteModule(moduleId));
   };
 
   // Update Module
