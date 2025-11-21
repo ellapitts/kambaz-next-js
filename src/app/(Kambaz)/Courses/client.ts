@@ -12,7 +12,7 @@ export const fetchAllCourses = async () => {
 };
 
 export const findMyCourses = async () => {
-console.log("Fetching:", `(${USERS_API}/current/courses`);
+  console.log("Fetching:", (`${USERS_API}/current/courses`)); // Also fixed the console.log
   const { data } = await axiosWithCredentials.get(`${USERS_API}/current/courses`);
   return data;
 };
@@ -39,7 +39,7 @@ export const updateCourse = async (course: any) => {
 // Make new module for a course
 export const createModuleForCourse = async (courseId: string, module: any) => {
   const response = await axios.post(
-    (`${COURSES_API}/${courseId}/modules`),
+    `${COURSES_API}/${courseId}/modules`,
     module
   );
   return response.data;
