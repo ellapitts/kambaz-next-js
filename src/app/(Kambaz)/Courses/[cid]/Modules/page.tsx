@@ -97,6 +97,8 @@ export default function Modules() {
               moduleId={module._id}
               deleteModule={(moduleId) => onRemoveModule(moduleId)}
               editModule={(moduleId) => dispatch(editModule(moduleId))}
+              saveModule={() => onUpdateModule({ ...module, editing: false })}
+              isEditing={module.editing || false} 
               /> 
             </div>
 
