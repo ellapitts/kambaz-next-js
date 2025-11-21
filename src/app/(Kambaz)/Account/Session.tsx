@@ -20,5 +20,6 @@ export default function Session({ children }: { children: any }) {
   if (!pending) {
     return children;
   }
+  return null; // Return null while pending to avoid rendering issues
 }
 
