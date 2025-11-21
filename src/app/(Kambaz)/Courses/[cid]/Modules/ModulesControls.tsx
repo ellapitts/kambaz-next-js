@@ -1,6 +1,6 @@
+/* This file implements the controls at the dop of the <Module> in a new ModuleControls componenet */
 "use client";
 import ModuleEditor from "./ModuleEditor";
-
 import {
   Button,
   Dropdown,
@@ -26,48 +26,76 @@ export default function ModulesControls({
   const handleShow = () => setShow(true);
 
   return (
-    <div id="wd-module-controls" className="text-nowrap">
-      {/* Add Module Button  (+ Red button) - Opens Modal */}
-      <Button variant="btn btn-danger" onClick={handleShow}>
-        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
-        Module
-      </Button>
+    <>
+      <div id="wd-modules-controls" className="text-nowrap mb-3">
+        <div className="d-flex justify-content-end gap-2 flex-wrap">
+          
+          {/* Collapse All - Hides on small/medium screens */}
+          <Button
+            variant="secondary" 
+            size="lg"
+            className="d-none d-lg-inline-block"
+            id="wd-collapse-all"
+          >
+            Collapse All
+          </Button>
 
-      {/* Publish All Dropdown Menu */}
-      <Dropdown className="float-end me-2">
-        <DropdownToggle variant="secondary" size="lg">
-          <GreenCheckmark /> Publish All
-        </DropdownToggle>
-        <DropdownMenu>
-          <DropdownItem>
-            <GreenCheckmark /> Publish All Modules
-          </DropdownItem>
-          <DropdownItem>
-            <GreenCheckmark /> Publish modules only
-          </DropdownItem>
-          <DropdownItem>Unpublished all modules</DropdownItem>
-          <DropdownItem>Unpublish modules only</DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
+          {/* View Progress - Hides on small/medium screens */}
+          <Button
+            variant="secondary"
+            size="lg"
+            className="d-none d-lg-inline-block"
+            id="wd-view-progress"
+          >
+            View Progress
+          </Button>
 
-      {/* View Progress Button */}
-      <Button variant="secondary" size="lg" className="float-end me-1">
-        View Progress
-      </Button>
-      {/* Collapse All  Button  */}
-      <Button variant="secondary" size="lg" className="float-end me-1">
-        Collapse All
-      </Button>
+          {/* Publish All Dropdown - Always visible */}
+          <Dropdown> 
+            <DropdownToggle variant="secondary" size="lg" id="wd-publish-all-btn">
+              <GreenCheckmark /> Publish All
+            </DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem id="wd-publish-all">
+                <GreenCheckmark /> Publish All
+              </DropdownItem>
+              <DropdownItem id="wd-publish-all-modules-and-items">
+                <GreenCheckmark /> Publish all modules and items
+              </DropdownItem>
+              <DropdownItem id="wd-publish-modules-only">
+                <GreenCheckmark /> Publish modules only
+              </DropdownItem>
+              <DropdownItem id="wd-unpublish-all-modules-and-items">
+                Unpublish all modules and items
+              </DropdownItem>
+              <DropdownItem id="wd-unpublish-modules-only">
+                Unpublish modules only
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
 
-      {/* Module Editor Modal (the popup window) */}
+          {/* Add Module Button - Always visible, opens modal */}
+          <Button
+            variant="danger"
+            size="lg"
+            onClick={handleShow}
+            id="wd-add-module-btn"
+          >
+            <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
+            Module
+          </Button>
+        </div>
+      </div>
+
+      {/* Module Editor Modal */}
       <ModuleEditor
-        show={show} // Controls popup visibility
-        handleClose={handleClose} // Funtion to close popup
-        dialogTitle="Add Module" // Title of the popup
-        moduleName={moduleName} // Content being typed in the input
-        setModuleName={setModuleName} // Updates what is being typed
-        addModule={addModule} // Save new module being added
+        show={show}
+        handleClose={handleClose}
+        dialogTitle="Add Module"
+        moduleName={moduleName}
+        setModuleName={setModuleName}
+        addModule={addModule}
       />
-    </div>
+    </>
   );
 }
