@@ -1,9 +1,10 @@
-// Dashboard page
+// Dashboard page - With working enrollment
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import * as client from "../Courses/client";
+import * as accountClient from "../Account/client";
 import {
   Card,
   CardImg,
@@ -20,27 +21,21 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setCourses } from "../Courses/reducer";
 import { RootState } from "../store";
-import { enrollCourse, unenrollCourse } from "./enrollmentsReducer";
+import { setEnrollments, enrollCourse, unenrollCourse } from "./enrollmentsReducer";
 
 export default function Dashboard() {
-  // Grab all courses from Redux
   const { courses } = useSelector((state: RootState) => state.coursesReducer);
-
-  // Get current signed-in user from Redux
   const { currentUser } = useSelector(
     (state: RootState) => state.accountReducer
   ) as { currentUser: { _id: string; role: string } | null };
-
-  // get all enrollments from Redux
   const { enrollments } = useSelector(
     (state: RootState) => state.enrollmentsReducer
   );
 
-  const dispatch = useDispatch(); // Dispatch function -- trigger Redux
-  const router = useRouter(); // Router
-  const [showAllCourses, setShowAllCourses] = useState(false); // Tracks whether to show all or ust user's enrollment
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const [showAllCourses, setShowAllCourses] = useState(false);
 
-  // Faculty only - template for creating new courses
   const [course, setCourse] = useState<any>({
     _id: "0",
     name: "New Course",
@@ -51,89 +46,101 @@ export default function Dashboard() {
     description: "New Description",
   });
 
-  // ======== BACKEND-INTEGRATED CRUD OPERATIONS ===== //
-  // Add new course - Creates on server, then updates Redux
-  const onAddNewCourse = async () => {
-    const newCourse = await client.createCourse(course);
-    dispatch(setCourses([...courses, newCourse]));
-  };
-  useEffect(() => {
-    fetchCourses();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentUser]);
-
-  // Delete course - Removes from server, then updates Redux
-  const onDeleteCourse = async (courseId: string) => {
-    try {
-      const status = await client.deleteCourse(courseId);
-      if (status) {
-         dispatch(setCourses(courses.filter((course) => course._id !== courseId)));
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Failed deleting course.");
-    } 
-  };
-
-  // Update course - Saves to server, then updates Redux
-  const onUpdateCourse = async () => {
-    await client.updateCourse(course);
-    dispatch(
-      setCourses(
-        courses.map((c) => {
-          if (c._id === course._id) {
-            return course;
-          } else {
-            return c;
-          }
-        })
-      )
-    );
-  };
-
-  // Fetch course based on mode 
+  // Fetch courses based on mode
   const fetchCourses = async () => {
+    if (!currentUser) return;
     try {
-      let courses;
       if (showAllCourses) {
-        // Fetch ALL courses when in enrollment mode
-        courses = await client.fetchAllCourses();
+        const courses = await client.fetchAllCourses();
+        dispatch(setCourses(courses));
       } else {
-        // Fetch only enrolled courses for normal view
-        courses = await client.findMyCourses();
+        const courses = await client.findMyCourses();
+        dispatch(setCourses(courses));
       }
-      dispatch(setCourses(courses));
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching courses:", error);
     }
   };
 
-  // Re-fetch when user changes or when showAllCourses toggles
   useEffect(() => {
-    fetchCourses();
+   const loadData = async () => {
+      if (currentUser) {
+        const userEnrollments = await accountClient.fetchEnrollments(currentUser._id);
+        dispatch(setEnrollments(userEnrollments));
+      }
+      await fetchCourses();
+    };
+    loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentUser, showAllCourses,]);
+  }, [currentUser, showAllCourses]);
 
-  // Helper funct. check if user is enrolled in spec. course.
+  // Add new course
+  const onAddNewCourse = async () => {
+    try {
+      const newCourse = await client.createCourse(course);
+      dispatch(setCourses([...courses, newCourse]));
+    } catch (error) {
+      console.error("Error creating course:", error);
+    }
+  };
+
+  // Delete course
+  const onDeleteCourse = async (courseId: string) => {
+    try {
+      await client.deleteCourse(courseId);
+      dispatch(setCourses(courses.filter((c) => c._id !== courseId)));
+    } catch (error) {
+      console.error("Error deleting course:", error);
+      alert("Failed to delete course");
+    }
+  };
+
+  // Update course
+  const onUpdateCourse = async () => {
+    try {
+      await client.updateCourse(course);
+      dispatch(setCourses(courses.map((c) => (c._id === course._id ? course : c))));
+    } catch (error) {
+      console.error("Error updating course:", error);
+    }
+  };
+
+  // Check if user is enrolled
   const isEnrolled = (courseId: string) => {
     return enrollments.some(
       (e: any) => e.user === currentUser?._id && e.course === courseId
     );
   };
 
-  // Unenroll helper funct for currentUser from course
-  const unenroll = (courseId: string) => {
+  // Enroll in course
+  const handleEnroll = async (courseId: string) => {
     if (!currentUser) return;
-    dispatch(unenrollCourse({ userId: currentUser._id, courseId }));
+    try {
+      await accountClient.enrollIntoCourse(currentUser._id, courseId);
+      dispatch(enrollCourse({ userId: currentUser._id, courseId }));
+    } catch (error) {
+      console.error("Enroll failed:", error);
+      alert("Failed to enroll");
+    }
+  };
+
+  // Unenroll from course
+  const handleUnenroll = async (courseId: string) => {
+    if (!currentUser) return;
+    try {
+      await accountClient.unenrollFromCourse(currentUser._id, courseId);
+      dispatch(unenrollCourse({ userId: currentUser._id, courseId }));
+    } catch (error) {
+      console.error("Unenroll failed:", error);
+      alert("Failed to unenroll");
+    }
   };
 
   return (
     <div id="wd-dashboard">
       <h1 id="wd-dashboard-title">Dashboard</h1>
 
-      {/* BLUE Enrollment toggel button.
-      Switches between User's Courses and ALL COURSES */}
-
+      {/* Enrollment toggle button */}
       <Button
         variant="primary"
         onClick={() => setShowAllCourses(!showAllCourses)}
@@ -142,7 +149,7 @@ export default function Dashboard() {
       </Button>
       <hr />
 
-      {/* FACULTY SECTION: Only visible to faculty users when showing "My Courses" */}
+      {/* Faculty course management */}
       {currentUser?.role === "FACULTY" && !showAllCourses && (
         <>
           <h5>
@@ -154,9 +161,8 @@ export default function Dashboard() {
             >
               Add
             </button>
-            {/* Update existing course */}
             <button
-              id="wd-update-new-course-click"
+              id="wd-update-course-click"
               onClick={onUpdateCourse}
               className="btn btn-warning float-end me-2"
             >
@@ -164,42 +170,34 @@ export default function Dashboard() {
             </button>
           </h5>
           <hr />
-          <br />
 
-          {/* Text input for editing course name */}
           <FormControl
             value={course.name}
             className="mb-2"
             onChange={(e) => setCourse({ ...course, name: e.target.value })}
           />
-
-          {/* Text area for editing course description */}
           <FormControl
             as="textarea"
             value={course.description}
             rows={3}
-            onChange={(e) =>
-              setCourse({ ...course, description: e.target.value })
-            }
+            onChange={(e) => setCourse({ ...course, description: e.target.value })}
           />
+          <hr />
         </>
       )}
 
-      {/* Header updates dynamically based on the view */}
+      {/* Course count header */}
       <h2 id="wd-dashboard-published">
-        {showAllCourses ? "All Courses" : "Published Courses"} ({courses.length}
-        )
+        {showAllCourses ? "All Courses" : "Published Courses"} ({courses.length})
       </h2>
       <hr />
 
       {/* Courses grid */}
       <div id="wd-dashboard-courses">
         <Row xs={1} md={2} lg={3} xl={4} className="g-4">
-          {/* Loop and filter through courses depending on mode of user */}
           {courses.map((course) => (
             <Col key={course._id} style={{ width: "350px" }}>
               <Card>
-                {/* Course image, title, and description link */}
                 <Link
                   href={`/Courses/${course._id}/Home`}
                   className="text-decoration-none text-dark"
@@ -216,55 +214,45 @@ export default function Dashboard() {
                     </CardText>
                   </CardBody>
                 </Link>
-                {/* Action button area under each course card */}
+
                 <CardBody className="pt-0">
                   <div className="d-flex justify-content-between">
-                    {/* Shows GO button */}
+                    {/* Go button */}
                     <Button
                       variant="primary"
                       onClick={() => router.push(`/Courses/${course._id}/Home`)}
                     >
                       Go
                     </Button>
-                    {/* ENROLL / UNENROLL BUTTONS */}
-                    {showAllCourses &&
-                      currentUser &&
-                      (isEnrolled(course._id) ? (
-                        // If user is already enrolled - show red Unenroll
+
+                    {/* Enroll/Unenroll (enrollment mode only) */}
+                    {showAllCourses && currentUser && (
+                      isEnrolled(course._id) ? (
                         <Button
                           variant="danger"
                           onClick={(e) => {
                             e.preventDefault();
-                            unenroll(course._id);
+                            handleUnenroll(course._id);
                           }}
                         >
                           Unenroll
                         </Button>
                       ) : (
-                        // if user NOT ENROLLED,show green enroll
                         <Button
                           variant="success"
                           onClick={(e) => {
                             e.preventDefault();
-                            ((courseId: string) => {
-                              if (!currentUser) return;
-                              dispatch(
-                                enrollCourse({
-                                  userId: currentUser._id,
-                                  courseId,
-                                })
-                              );
-                            })(course._id);
+                            handleEnroll(course._id);
                           }}
                         >
                           Enroll
                         </Button>
-                      ))}
+                      )
+                    )}
 
-                    {/* Faculty-only Edit/Delete buttons */}
+                    {/* Faculty Edit/Delete (my courses mode only) */}
                     {!showAllCourses && currentUser?.role === "FACULTY" && (
                       <>
-                        {/* Edit course */}
                         <button
                           className="btn btn-warning me-2"
                           onClick={(e) => {
@@ -274,8 +262,6 @@ export default function Dashboard() {
                         >
                           Edit
                         </button>
-
-                        {/* Delete course */}
                         <button
                           className="btn btn-danger"
                           onClick={(e) => {
