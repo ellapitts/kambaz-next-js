@@ -7,21 +7,6 @@ import CourseStatus from "./coursehomepagestatus";
 
 export default function Home() {
   return (
-    // Old styling
-    // <div id="wd-home">
-    //   <table>
-    //     <tbody>
-    //       <tr>
-    //         <td valign="top" width="70%">
-    //           <Modules />
-    //         </td>
-    //         <td valign="top"><CourseStatus /></td>
-    //       </tr>
-    //     </tbody>
-    //   </table>
-    // </div>
-
-    // New
     <div id="wd-home">
       <div className="d-flex" id="wd-home">
         <div className="flex-fill me-3">
