@@ -1,4 +1,4 @@
-// Dashboard page: displas all courses and allows users to enroll, unenroll, or manage the state.
+// Dashboard page
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -18,14 +18,10 @@ import {
 
 // Redux imports
 import { useDispatch, useSelector } from "react-redux";
-import {
-  // addNewCourse, removed
-  // deleteCourse, removed
-  //updateCourse,
-  setCourses,
-} from "../Courses/reducer";
+import { setCourses } from "../Courses/reducer";
 import { RootState } from "../store";
 import { enrollCourse, unenrollCourse } from "./enrollmentsReducer";
+import { current } from "@reduxjs/toolkit";
 
 export default function Dashboard() {
   // Grab all courses from Redux
@@ -41,14 +37,9 @@ export default function Dashboard() {
     (state: RootState) => state.enrollmentsReducer
   );
 
-  // Dispatch function -- trigger Redux
-  const dispatch = useDispatch();
-
-  // Router
-  const router = useRouter();
-
-  // Tracks whether to show all or ust user's enrollment
-  const [showAllCourses, setShowAllCourses] = useState(false);
+  const dispatch = useDispatch(); // Dispatch function -- trigger Redux
+  const router = useRouter(); // Router
+  const [showAllCourses, setShowAllCourses] = useState(false); // Tracks whether to show all or ust user's enrollment
 
   // Faculty only - template for creating new courses
   const [course, setCourse] = useState<any>({
@@ -61,17 +52,8 @@ export default function Dashboard() {
     description: "New Description",
   });
 
-  // Fetch course
-  const fetchCourses = async () => {
-    try {
-      const courses = await client.findMyCourses();
-      dispatch(setCourses(courses));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // Add new course
+  // ======== BACKEND-INTEGRATED CRUD OPERATIONS ===== //
+  // Add new course - Creates on server, then updates Redux
   const onAddNewCourse = async () => {
     const newCourse = await client.createCourse(course);
     dispatch(setCourses([...courses, newCourse]));
@@ -81,13 +63,13 @@ export default function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
-  // Delete existing course
+  // Delete course - Removes from server, then updates Redux
   const onDeleteCourse = async (courseId: string) => {
     const status = await client.deleteCourse(courseId);
     dispatch(setCourses(courses.filter((course) => course._id !== courseId)));
   };
 
-  // Update course
+  // Update course - Saves to server, then updates Redux
   const onUpdateCourse = async () => {
     await client.updateCourse(course);
     dispatch(
@@ -102,6 +84,28 @@ export default function Dashboard() {
       )
     );
   };
+
+  // Fetch course based on mode 
+  const fetchCourses = async () => {
+    try {
+      let courses;
+      if (showAllCourses) {
+        // Fetch ALL courses when in enrollment mode
+        courses = await client.fetchAllCourses();
+      } else {
+        // Fetch only enrolled courses for normal view
+        courses = await client.findMyCourses();
+      }
+      dispatch(setCourses(courses));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Re-fetch when user changes or when showAllCourses toggles
+  useEffect(() => {
+    fetchCourses();
+  }, [currentUser, showAllCourses,]);
 
   // Helper funct. check if user is enrolled in spec. course.
   const isEnrolled = (courseId: string) => {
@@ -209,10 +213,12 @@ export default function Dashboard() {
                 <CardBody className="pt-0">
                   <div className="d-flex justify-content-between">
                     {/* Shows GO button */}
-                    <Button variant="primary"
-                    onClick={() => router.push(`/Courses/${course._id}/Home`)}>
+                    <Button
+                      variant="primary"
+                      onClick={() => router.push(`/Courses/${course._id}/Home`)}
+                    >
                       Go
-                      </Button>
+                    </Button>
                     {/* ENROLL / UNENROLL BUTTONS */}
                     {showAllCourses &&
                       currentUser &&
@@ -249,7 +255,7 @@ export default function Dashboard() {
                       ))}
 
                     {/* Faculty-only Edit/Delete buttons */}
-                    {!showAllCourses && (
+                    {!showAllCourses && currentUser?.role === "FACULTY" && (
                       <>
                         {/* Edit course */}
                         <button
