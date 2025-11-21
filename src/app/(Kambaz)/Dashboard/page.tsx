@@ -21,7 +21,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCourses } from "../Courses/reducer";
 import { RootState } from "../store";
 import { enrollCourse, unenrollCourse } from "./enrollmentsReducer";
-import { current } from "@reduxjs/toolkit";
 
 export default function Dashboard() {
   // Grab all courses from Redux
@@ -65,8 +64,15 @@ export default function Dashboard() {
 
   // Delete course - Removes from server, then updates Redux
   const onDeleteCourse = async (courseId: string) => {
-    const status = await client.deleteCourse(courseId);
-    dispatch(setCourses(courses.filter((course) => course._id !== courseId)));
+    try {
+      const status = await client.deleteCourse(courseId);
+      if (status) {
+         dispatch(setCourses(courses.filter((course) => course._id !== courseId)));
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Failed deleting course.");
+    } 
   };
 
   // Update course - Saves to server, then updates Redux
@@ -105,6 +111,7 @@ export default function Dashboard() {
   // Re-fetch when user changes or when showAllCourses toggles
   useEffect(() => {
     fetchCourses();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser, showAllCourses,]);
 
   // Helper funct. check if user is enrolled in spec. course.
