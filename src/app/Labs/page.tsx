@@ -25,14 +25,14 @@ export default function Labs() {
             Lab 3: JavaScript Fundamentals
           </Link>
         </li>
-         <li>
+        <li>
           <Link href="/Labs/Lab4" id="wd-lab4-link">
             Lab 4: Maintaing State in React Applications
           </Link>
         </li>
         <li>
           <Link href="/Labs/Lab5" id="wd-lab5-link">
-            Lab 5: Backend 
+            Lab 5: Backend
           </Link>
         </li>
         <li>
@@ -47,6 +47,26 @@ export default function Labs() {
         <li>
           <a href="https://github.com/ellapitts/kambaz-next-js" id="wd-github">
             Ella Pitts GitHub Repository
+          </a>
+        </li>
+
+        {/* Front end */}
+        <li>
+          <a
+            href="https://github.com/ellapitts/kambaz-next-js"
+            id="wd-github-client-side"
+          >
+            Frontend Repository
+          </a>
+        </li>
+
+        {/* backend */}
+        <li>
+          <a
+            href="https://github.com/ellapitts/kambaz-node-server-app"
+            id="wd-github-server-side"
+          >
+            Backend Repository
           </a>
         </li>
       </ul>
