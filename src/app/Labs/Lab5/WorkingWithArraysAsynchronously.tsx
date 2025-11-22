@@ -111,6 +111,7 @@ export default function WorkingWithArraysAsynchronously() {
         <FaPlusCircle
           onClick={createNewTodo}
           className="text-success float-end fs-3"
+          id="wd-create-todos"
         />{" "}
         <FaPlusCircle
           onClick={postNewTodo}
@@ -165,13 +166,18 @@ export default function WorkingWithArraysAsynchronously() {
                 onClick={() => editTodo(todo)}
                 className="text-primary mt-1"
               />
+              {/* The "bad" static way misusing GET for everything */}
               <FaTrash
                 onClick={() => removeTodo(todo)}
                 className="text-danger mt-1"
+                id="wd-remote-todos"
               />
+
+              {/* Deletes the REST way */}
               <TiDelete
                 onClick={() => deleteTodo(todo)}
                 className="text-danger fs-3"
+                id="wd-delete-todos"
               />
             </div>
           </ListGroupItem>
