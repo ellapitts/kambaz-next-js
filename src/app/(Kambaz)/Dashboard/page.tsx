@@ -195,7 +195,9 @@ export default function Dashboard() {
       {/* Courses grid */}
       <div id="wd-dashboard-courses">
         <Row xs={1} md={2} lg={3} xl={4} className="g-4">
-          {courses.map((course) => (
+          {courses
+          .filter((course) => showAllCourses || isEnrolled(course._id))
+          .map((course) => (
             <Col key={course._id} style={{ width: "350px" }}>
               <Card>
                 <Link
