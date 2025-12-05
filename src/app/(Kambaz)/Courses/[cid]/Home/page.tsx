@@ -4,6 +4,7 @@
 // Combines the Course Status with the Modules to create the Home screen for the course screen.
 import Modules from "../Modules/page";
 import CourseStatus from "./status";
+
 export default function Home() {
   return (
     <div id="wd-home">
